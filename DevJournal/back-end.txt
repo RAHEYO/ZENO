@@ -1,0 +1,4 @@
+Ryan June 24th 3:06 PM:
+    This is the notes for back-end, I'll be consistently posting new updates about it!
+    You can always ask questions or inform me what to back-end features you want and I'll try to make an update on it.
+    As for now, I envision us using the MySql database, a very traditional approach but also reliable & fast.

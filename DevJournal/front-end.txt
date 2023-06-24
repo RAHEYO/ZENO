@@ -1,0 +1,6 @@
+Ryan June 24th 3:06 PM:
+    This is the front-end! I guess it'll look something like this in a few months:
+        {
+            Brandon Auguest 19th 9:13 AM: Finished the tab bar, but still need to integrate new packages, Ryan you can do that!
+            Ryan Augest 20th 13:45 PM: Uhh OK, I'll try @_@
+        }
