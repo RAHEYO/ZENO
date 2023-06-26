@@ -1,3 +1,11 @@
+Ryan June 26th 11:31 AM:
+    1. Added our custom color palette to the tailwind.css config, commited to front-end branch
+    2. More layouts are completed, now you can see the navbar on the left-side, although functionality is not yet implemented~
+    NextStep:
+        1. I'll make the functionality work
+        2. Make things pretteir?
+        3. Actually start making those pages like channels, and attempt to make a board (canvas)?
+
 Ryan June 25th 5:57 PM:
     Summary: I built a simple front-end layout for the HomeSpace today, space = server.
     Notes:

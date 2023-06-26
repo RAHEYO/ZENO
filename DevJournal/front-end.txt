@@ -1,3 +1,10 @@
+Ryan June 26th 11:34 AM:
+    I separated the {RootNavbar} into 2 components, a {NavPrimary} for the left-most navigation btw Spaces, and {NavSecondary} right next to it for navigation btw Channels
+    Note that the first space of NavPrimary is default the current user's space, where they can keep track of their performance
+
+    Brandon: can you try to code a board, like a big canvas of which people can drag and drop things around?
+    
+
 Ryan June 25th 6:01 PM:
     Explanation:
         1. I commented the initial page that Next.js generates by default, so maybe we can borrow their styling in the future, dw about it~
