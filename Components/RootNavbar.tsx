@@ -19,19 +19,19 @@ const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
     }
 
     return (
-        <div className="sticky h-full w-16 top-full start-0 bg-slate-400 p-3 space-y-3 items-center">
+        <div className="sticky h-full w-16 top-full start-0 bg-bar p-3 space-y-3 items-center">
             {
                 dummySpaces.map((space) => {
                     const { id, name, profilePic } = space;
 
                     return (
-                        <div key={id} onClick={navigate} className='hover:scale-105'>
-                            <Image className="rounded-md border border-white overflow-clip object-cover aspect-square" src={profilePic} width={40} height={40} alt={`${name} Profile`} />
+                        <div key={id} onClick={navigate} className='hover:scale-105 transition'>
+                            <Image className="rounded-md border border-neutral overflow-clip object-cover aspect-square" src={profilePic} width={40} height={40} alt={`${name} Profile`} />
                             {
                                 currentPageId == id && (
                                     <>
                                         <Spacebar className="h-1" />
-                                        <Divider direction={Direction.HORIZONTAL} color="black" padding={2} />
+                                        <Divider direction={Direction.HORIZONTAL} color="primary" padding={2} />
                                     </>
                                 )
                             }

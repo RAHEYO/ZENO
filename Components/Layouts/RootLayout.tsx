@@ -9,7 +9,7 @@ type RootLayoutProps = {
 
 const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     return (
-    <div className='w-screen h-screen flex flex-row'>
+    <div className='w-screen h-screen flex flex-row bg-background text-foreground'>
         <RootNavbar />
         
         {children}

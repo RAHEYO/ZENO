@@ -13,7 +13,7 @@ type DividerProps = {
 
 const DEFAULT_STYLE = 'rounded-full';
 const Divider: FC<DividerProps> = ({ direction, padding, color }): JSX.Element => {
-
+    
     const getStyle = (): string => {
         let returnString = DEFAULT_STYLE;
 
