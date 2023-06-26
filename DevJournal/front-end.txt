@@ -1,3 +1,13 @@
+Ryan June 25th 6:01 PM:
+    Explanation:
+        1. I commented the initial page that Next.js generates by default, so maybe we can borrow their styling in the future, dw about it~
+        2. I named the highest level component of the website "Root" (path '/'), default rendering the HomeSpace
+        3. The {Components} folder is meant to simplify code, highly reusable components are stored in the {General} subfolder,
+            and layouts or wrapper components are stored in the {Layout} subfolder
+        4. Also notice that the colors are just random, I'll be implenting the colors that we decided on next
+        5. Navigation is unavailable rn, just a dummy layout~
+
+
 Ryan June 24th 3:06 PM:
     This is the front-end! I guess it'll look something like this in a few months:
         {

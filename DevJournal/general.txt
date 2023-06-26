@@ -1,3 +1,10 @@
+Ryan June 25th 5:57 PM:
+    Summary: I built a simple front-end layout for the HomeSpace today, space = server.
+    Notes:
+        * The features aren't completed yet, they are there to show a general layout.
+        * The Dummies folder is consists of some dummy data only for development before we have a fully usable back-end, feel free to modify the file~
+    Details see in the front-end journal...
+
 Ryan June 24th 3:00 PM:
     Sup Brandon! 
     I made this folder bc I think it's very convenient to just leave notes here and inform the other person what we've worked on and what we will do~
