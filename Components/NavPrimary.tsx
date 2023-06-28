@@ -25,7 +25,7 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentPageId, navigate }): JSX.Eleme
     }
 
     return (
-    <div className="sticky flex flex-col h-full w-[70px] top-full start-0 bg-bar py-5 space-y-3 items-center">
+    <div className="flex flex-col h-full w-[70px] bg-bar py-5 space-y-3 items-center">
         {/* TODO: Change to real profile picture */}
         <Image className='object-cover overflow-clip rounded-lg' src="https://tinyurl.com/Example-Profile-Pic" alt="Profile Pic" width={50} height={50} />
         <Divider direction={Direction.HORIZONTAL} thick={3} color='neutral' margin={1} />

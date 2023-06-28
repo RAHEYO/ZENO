@@ -21,7 +21,7 @@ const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
     }
 
     return (
-    <div className="flex flex-row">
+    <div className="fixed top-0 start-0 h-full flex flex-row">
         {/* The Primary Nav Bar (left-most bar) */}
         <NavPrimary currentPageId={currentPageId} navigate={navigate} />
 
