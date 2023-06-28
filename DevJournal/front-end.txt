@@ -1,3 +1,9 @@
+Ryan June 28th 11:57 AM:
+    Navigation working, actual contents needed to be implemented.
+    Notes:
+        * All the spaces have a route of '/spaces/[id]', except for the user's personal space which is just the app root '/'
+        * I added a Utils.js file in spaces folder to contain general purpose functions, you can add custom methods such as converting time etc.
+
 Ryan June 26th 11:34 AM:
     I separated the {RootNavbar} into 2 components, a {NavPrimary} for the left-most navigation btw Spaces, and {NavSecondary} right next to it for navigation btw Channels
     Note that the first space of NavPrimary is default the current user's space, where they can keep track of their performance

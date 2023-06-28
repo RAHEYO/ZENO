@@ -1,3 +1,11 @@
+Ryan June 28th 11:56AM:
+    I just completed dynamic routing work, so now the navigation of between spaces is finally working instead of just being a layout.
+    The border of the spaces is also bolder to indicate which space you're on.
+    NextStep:
+    1. Implement Channels (Secondary Navbar)
+    2. Implement Chatting channels
+    3. Implement the Board UI
+
 Ryan June 26th 11:31 AM:
     1. Added our custom color palette to the tailwind.css config, commited to front-end branch
     2. More layouts are completed, now you can see the navbar on the left-side, although functionality is not yet implemented~
