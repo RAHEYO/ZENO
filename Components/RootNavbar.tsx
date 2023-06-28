@@ -1,29 +1,46 @@
-import { FC } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import Image from 'next/image';
-
-import dummySpaces from '../Dummies/Spaces';
-import Spacebar from './General/Spacebar';
-import Divider, { Direction } from './General/Divider';
+import dummySpaces, { Space } from '../Dummies/Spaces';
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
 
 type RootNavbarProps = {
-
+    
 }
 
-const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
-    // TODO: Save this to the LocalStorage to remember which page we're on~
-    const currentPageId = 0;
 
-    const navigate = () => {
-        console.log("Navigating to parralel page...")
+// The key to get & set in the localStorage~
+export const ROOT_NAV_ROUTE_KEY = "ROOT_NAV_ROUTE_KEY";
+
+const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
+    // The Space we're currenlty on
+    const [currentSpaceId, setCurrentSpaceId] = useState('me');
+    
+    // Update the localStorage whenever user click on a new Space
+    // We need localStorage bc we're rendering this layout across all Spaces
+    useEffect(() => {
+        // If on the first render, set it to the Homespace on default
+        if (localStorage.getItem(ROOT_NAV_ROUTE_KEY) == null) localStorage.setItem(ROOT_NAV_ROUTE_KEY, '0');
+        else {
+            if (currentSpaceId !== localStorage.getItem(ROOT_NAV_ROUTE_KEY)) {
+                setCurrentSpaceId(localStorage.getItem(ROOT_NAV_ROUTE_KEY)!);
+            }
+        }
+    }, [currentSpaceId]);
+
+    const updateSpaceId = (toId: string) => {
+        // Prevent any duplicate actions:
+        if (toId === currentSpaceId) return;
+        
+        console.warn("To: ", toId);
+        setCurrentSpaceId(toId);
+        localStorage.setItem(ROOT_NAV_ROUTE_KEY, toId);
     }
 
     return (
-    <div className="fixed top-0 start-0 h-full flex flex-row">
+    <div key="ONlY" className="fixed top-0 start-0 h-full flex flex-row">
         {/* The Primary Nav Bar (left-most bar) */}
-        <NavPrimary currentPageId={currentPageId} navigate={navigate} />
+        <NavPrimary spaces={dummySpaces} currentSpaceId={currentSpaceId} onNavigate={updateSpaceId} />
 
         {/* The secondary bar, space specific navigations between channels */}
         <NavSecondary />

@@ -1,43 +1,51 @@
 import { FC } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Divider, { Direction } from './General/Divider';
-import dummySpaces from '../Dummies/Spaces';
-import Spacebar from './General/Spacebar';
+import { Space } from '../Dummies/Spaces';
+import { getSpaceRoute } from '@/pages/spaces/Utils';
 
 type NavPrimaryProps = {
-    currentPageId: number,
-    navigate: () => void
+    currentSpaceId: string,
+    spaces: Space[], 
+    onNavigate: (toId: string) => void
 }
 
-const DEFAULT_SPACE_STYLE = 'rounded-md border-neutral overflow-clip object-cover aspect-square';
+const DEFAULT_SPACE_PROFILE_STYLE = 'rounded-xl border-neutral overflow-clip object-cover aspect-square';
+const DEFAULT_MY_SPACE_PROFILE_STYLE = 'rounded-2xl border-neutral overflow-clip object-cover aspect-square';
 
-const NavPrimary: FC<NavPrimaryProps> = ({ currentPageId, navigate }): JSX.Element => {
+const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate }): JSX.Element => {
     // Border is bolder if the user is in the this current space
-    const getSpaceStyle = (id: number) => {
-        const inCurrentSpace: boolean = currentPageId == id;
+    const getSpaceProfileStyle = (id: string) => {
+        const inCurrentSpace: boolean = currentSpaceId === id;
 
         if (inCurrentSpace) {
-            return DEFAULT_SPACE_STYLE + ' border-2';
+            // I made the Personal Space bigger to emphasize
+            if (id === 'me') return DEFAULT_MY_SPACE_PROFILE_STYLE + ' border-[3px]';
+
+            return DEFAULT_SPACE_PROFILE_STYLE + ' border-[3px]';
         } else {
-            return DEFAULT_SPACE_STYLE + ' border'
+            return DEFAULT_SPACE_PROFILE_STYLE + ' border';
         }
     }
 
     return (
     <div className="flex flex-col h-full w-[70px] bg-bar py-5 space-y-3 items-center">
         {/* TODO: Change to real profile picture */}
-        <Image className='object-cover overflow-clip rounded-lg' src="https://tinyurl.com/Example-Profile-Pic" alt="Profile Pic" width={50} height={50} />
+        <Link href='/' onMouseDown={() => onNavigate('me')}>
+            <Image className={getSpaceProfileStyle('me')} src="https://tinyurl.com/Example-Profile-Pic" alt="Profile Pic" width={50} height={50} />
+        </Link>
         <Divider direction={Direction.HORIZONTAL} thick={3} color='neutral' margin={1} />
 
         {
-            dummySpaces.map((space) => {
+            spaces.map((space) => {
                 const { id, name, profilePic } = space;
                 
                 return (
-                    <div key={id} onClick={navigate} className='hover:scale-105 transition'>
-                        <Image className={getSpaceStyle(id)} src={profilePic} width={45} height={45} alt={`${name} Profile`} />
-                    </div>
+                    <Link key={id} href={getSpaceRoute(id)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>
+                        <Image className={getSpaceProfileStyle(id)} src={profilePic} width={45} height={45} alt={`${name} Profile`} />
+                    </Link>
                 );
             })
         }
