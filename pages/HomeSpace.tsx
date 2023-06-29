@@ -1,17 +1,20 @@
-import { NextPage } from 'next';
+import { NextPage } from "next";
 
-import RootLayout from '@/Components/Layouts/RootLayout';
+import RootLayout from "@/Components/Layouts/RootLayout";
+import Toolbar from "@/Components/Tools/Toolbar";
+import Whiteboard from "@/Components/Tools/Whiteboard";
 
-type HomeSpaceProps = {
-
-}
+type HomeSpaceProps = {};
 
 const HomeSpace: NextPage<HomeSpaceProps> = () => {
-    return (
-    <RootLayout>
-        @_@ TO HomeSpace
-    </RootLayout>
-    );
-}
+	return (
+		<RootLayout>
+			@_@ TO HomeSpace
+			<Toolbar>
+				<Whiteboard />
+			</Toolbar>
+		</RootLayout>
+	);
+};
 
 export default HomeSpace;
