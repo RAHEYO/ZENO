@@ -1,38 +1,39 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import dummySpaces, { Space } from '../Dummies/Spaces';
+import dummySpaces, { dummyUserSpaceId } from '../Dummies/Spaces';
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
-
-type RootNavbarProps = {
-    
-}
 
 
 // The key to get & set in the localStorage~
 export const ROOT_NAV_ROUTE_KEY = "ROOT_NAV_ROUTE_KEY";
 
-const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
+const RootNavbar: FC = (): JSX.Element => {
     // The Space we're currenlty on
-    const [currentSpaceId, setCurrentSpaceId] = useState('me');
+    const [currentSpaceId, setCurrentSpaceId] = useState(dummyUserSpaceId);
     
+    // TODO: Replace with actual data in the back-end
+    const fetchedSpaces = () => {
+        return dummySpaces;
+    }
+
     // Update the localStorage whenever user click on a new Space
     // We need localStorage bc we're rendering this layout across all Spaces
     useEffect(() => {
-        // If on the first render, set it to the Homespace on default
-        if (localStorage.getItem(ROOT_NAV_ROUTE_KEY) == null) localStorage.setItem(ROOT_NAV_ROUTE_KEY, '0');
+        // If the first time visiting, set it to the Homespace on default
+        if (localStorage.getItem(ROOT_NAV_ROUTE_KEY) == null) 
+            localStorage.setItem(ROOT_NAV_ROUTE_KEY, dummyUserSpaceId);
         else {
-            if (currentSpaceId !== localStorage.getItem(ROOT_NAV_ROUTE_KEY)) {
-                setCurrentSpaceId(localStorage.getItem(ROOT_NAV_ROUTE_KEY)!);
-            }
+            // If localStorage shows which space we're in, then update the state if different (scenario happens after navigated, new component with default state)
+            if (currentSpaceId !== localStorage.getItem(ROOT_NAV_ROUTE_KEY)) setCurrentSpaceId(localStorage.getItem(ROOT_NAV_ROUTE_KEY)!);
         }
     }, [currentSpaceId]);
 
+    // Callback updating states when navigating
     const updateSpaceId = (toId: string) => {
         // Prevent any duplicate actions:
         if (toId === currentSpaceId) return;
         
-        console.warn("To: ", toId);
         setCurrentSpaceId(toId);
         localStorage.setItem(ROOT_NAV_ROUTE_KEY, toId);
     }
@@ -40,10 +41,10 @@ const RootNavbar: FC<RootNavbarProps> = (props): JSX.Element => {
     return (
     <div key="ONlY" className="fixed top-0 start-0 h-full flex flex-row">
         {/* The Primary Nav Bar (left-most bar) */}
-        <NavPrimary spaces={dummySpaces} currentSpaceId={currentSpaceId} onNavigate={updateSpaceId} />
+        <NavPrimary spaces={fetchedSpaces()} currentSpaceId={currentSpaceId} onNavigate={updateSpaceId} />
 
         {/* The secondary bar, space specific navigations between channels */}
-        <NavSecondary />
+        <NavSecondary currentSpace={fetchedSpaces().find(space => space.id === currentSpaceId)!} />
     </div>
     );
 };

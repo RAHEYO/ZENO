@@ -1,4 +1,9 @@
-Ryan June 28th 11:56AM:
+Ryan June 29th 11:14 AM:
+    I added the Channels dummy data for developing the front-end, and also changed some data structure, details can be seen in the comments I left.
+    Basically, the User's personal space is also a special space that contains channels act like chats,
+    other spaces are public (means shared like Discord servers) with channels for communication~
+
+Ryan June 28th 11:56 AM:
     I just completed dynamic routing work, so now the navigation of between spaces is finally working instead of just being a layout.
     The border of the spaces is also bolder to indicate which space you're on.
     NextStep:
