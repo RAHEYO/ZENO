@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-import RootLayout from '@/Components/Layouts/RootLayout';
+import RootLayout from '@/Components/Nav/RootLayout';
 
 type HomeSpaceProps = {
 

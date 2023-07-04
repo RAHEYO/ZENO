@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 
-import dummySpaces, { dummyUserSpaceId } from '../Dummies/Spaces';
+import dummySpaces, { dummyUserSpaceId } from '../../Dummies/Spaces';
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
 
-
 // The key to get & set in the localStorage~
-export const ROOT_NAV_ROUTE_KEY = "ROOT_NAV_ROUTE_KEY";
+export const NAV_SPACE_KEY = "NAV_SPACE_KEY";
 
 const RootNavbar: FC = (): JSX.Element => {
     // The Space we're currenlty on
@@ -21,11 +20,11 @@ const RootNavbar: FC = (): JSX.Element => {
     // We need localStorage bc we're rendering this layout across all Spaces
     useEffect(() => {
         // If the first time visiting, set it to the Homespace on default
-        if (localStorage.getItem(ROOT_NAV_ROUTE_KEY) == null) 
-            localStorage.setItem(ROOT_NAV_ROUTE_KEY, dummyUserSpaceId);
-        else {
+        if (localStorage.getItem(NAV_SPACE_KEY) == null) {
+            localStorage.setItem(NAV_SPACE_KEY, dummyUserSpaceId);
+        } else {
             // If localStorage shows which space we're in, then update the state if different (scenario happens after navigated, new component with default state)
-            if (currentSpaceId !== localStorage.getItem(ROOT_NAV_ROUTE_KEY)) setCurrentSpaceId(localStorage.getItem(ROOT_NAV_ROUTE_KEY)!);
+            if (currentSpaceId !== localStorage.getItem(NAV_SPACE_KEY)) setCurrentSpaceId(localStorage.getItem(NAV_SPACE_KEY)!);
         }
     }, [currentSpaceId]);
 
@@ -35,7 +34,7 @@ const RootNavbar: FC = (): JSX.Element => {
         if (toId === currentSpaceId) return;
         
         setCurrentSpaceId(toId);
-        localStorage.setItem(ROOT_NAV_ROUTE_KEY, toId);
+        localStorage.setItem(NAV_SPACE_KEY, toId);
     }
 
     return (
