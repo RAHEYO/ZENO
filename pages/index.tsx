@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import RootLayout from '@/Components/Layouts/RootLayout'
 import HomeSpace from './HomeSpace'
 
 const inter = Inter({ subsets: ['latin'] })

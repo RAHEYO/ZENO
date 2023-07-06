@@ -2,8 +2,8 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Divider, { Direction } from './General/Divider';
-import { Space, dummyUserSpaceId } from '../Dummies/Spaces';
+import Divider, { Direction } from '../General/Divider';
+import { Space, dummyUserSpaceId } from '../../Dummies/Spaces';
 import { getSpaceRoute } from '@/pages/spaces/Utils';
 
 type NavPrimaryProps = {
@@ -49,7 +49,7 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
                 const { id, name, profilePic } = space;
                 
                 return (
-                    <Link key={id} href={getSpaceRoute(id)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>
+                    <Link key={id} href={getSpaceRoute(name)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>
                         <Image className={getSpaceProfileStyle(id)} src={profilePic} width={45} height={45} alt={`${name} Profile`} />
                     </Link>
                 );

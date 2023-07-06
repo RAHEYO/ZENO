@@ -1,3 +1,7 @@
+Ryan Jul 3rd 11:14 AM:
+    Added routing functionality between channels~
+    Notice: I also changed the file path conventions in the components folder, moved files around so just a heads up~
+
 Ryan June 29th 11:14 AM:
     I added the Channels dummy data for developing the front-end, and also changed some data structure, details can be seen in the comments I left.
     Basically, the User's personal space is also a special space that contains channels act like chats,

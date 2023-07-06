@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { ReactNode } from 'react';
 
-import RootNavbar from '../RootNavbar';
+import RootNavbar from './RootNavbar';
 import Spacebar from '../General/Spacebar';
 
 type RootLayoutProps = {
