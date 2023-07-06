@@ -1,15 +1,15 @@
-import { NextPage } from 'next';
+// import { NextPage } from 'next';
 
-import RootLayout from '@/Components/Layouts/RootLayout';
+// import RootLayout from '@/Components/Nav/RootLayout';
 
-type SpacePageProps = {
+// type SpacePageProps = {
 
-}
+// }
 
-const SpacePage: NextPage<SpacePageProps> = () => {
-    return (
-    <RootLayout>@_@ TO SpacePage</RootLayout>
-    );
-}
+// const SpacePage: NextPage<SpacePageProps> = () => {
+//     return (
+//     <RootLayout>@_@ TO SpacePage</RootLayout>
+//     );
+// }
 
-export default SpacePage;
+// export default SpacePage;

@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-import RootLayout from "@/Components/Layouts/RootLayout";
+import RootLayout from "@/Components/Nav/RootLayout";
 import Toolbar from "@/Components/Tools/Toolbar";
 import Whiteboard from "@/Components/Tools/Whiteboard";
 
