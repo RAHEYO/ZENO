@@ -7,7 +7,7 @@ type ToolbarProps = {
 };
 
 // Storing all the styles in a cleaner way than raw text lol
-const styles = ["bg-primary", "max-w-sm", "mx-auto", "flex", "justify-evenly"].reduce(
+const styles = ["bg-primary", "max-w-[40vw]", "max-h-[7.5vh]", "mx-auto", "flex", "justify-evenly"].reduce(
     (prevStyle, currentStyle) => prevStyle + " " + currentStyle
 )
 
