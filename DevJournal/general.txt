@@ -1,3 +1,13 @@
+Ryan [for the past 10 days] Jul 12 7:29 PM:
+    I added mysql2 to our project and tested, everything's working fine.
+    Also I merged the front-end to this, so that now the back-end = mysql + front-end, leaving the front-end branch unchanged.
+    Both main + dev branches include mysql2 as well.
+
+    More details can be seen on the back-end branch...
+
+    NextStep:
+        * My focus would be mostly on the front-end now, it's where we gotta pay most of our efforts as we got a lot of features to cover. The faster we skim through the features, the more we know abt what we need for the back-end.
+
 Ryan Jul 3rd 11:14 AM:
     Added routing functionality between channels~
     Notice: I also changed the file path conventions in the components folder, moved files around so just a heads up~
