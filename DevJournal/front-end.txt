@@ -1,3 +1,31 @@
+Ryan June 29th 11:14 AM:
+    Due to the change in the data structure, I organized the front-end code a little bit and added more comments to explain.
+    Also, the UI for NavSecondary can be modified as we the data structure for Channels and Spaces are clear~
+    GOOD LUCK BRANDON!
+
+Ryan June 28th 11:57 AM:
+    Navigation working, actual contents needed to be implemented.
+    Notes:
+        * All the spaces have a route of '/spaces/[id]', except for the user's personal space which is just the app root '/'
+        * I added a Utils.js file in spaces folder to contain general purpose functions, you can add custom methods such as converting time etc.
+
+Ryan June 26th 11:34 AM:
+    I separated the {RootNavbar} into 2 components, a {NavPrimary} for the left-most navigation btw Spaces, and {NavSecondary} right next to it for navigation btw Channels
+    Note that the first space of NavPrimary is default the current user's space, where they can keep track of their performance
+
+    Brandon: can you try to code a board, like a big canvas of which people can drag and drop things around?
+    
+
+Ryan June 25th 6:01 PM:
+    Explanation:
+        1. I commented the initial page that Next.js generates by default, so maybe we can borrow their styling in the future, dw about it~
+        2. I named the highest level component of the website "Root" (path '/'), default rendering the HomeSpace
+        3. The {Components} folder is meant to simplify code, highly reusable components are stored in the {General} subfolder,
+            and layouts or wrapper components are stored in the {Layout} subfolder
+        4. Also notice that the colors are just random, I'll be implenting the colors that we decided on next
+        5. Navigation is unavailable rn, just a dummy layout~
+
+
 Ryan June 24th 3:06 PM:
     This is the front-end! I guess it'll look something like this in a few months:
         {

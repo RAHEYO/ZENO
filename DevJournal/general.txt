@@ -1,3 +1,35 @@
+Ryan Jul 3rd 11:14 AM:
+    Added routing functionality between channels~
+    Notice: I also changed the file path conventions in the components folder, moved files around so just a heads up~
+
+Ryan June 29th 11:14 AM:
+    I added the Channels dummy data for developing the front-end, and also changed some data structure, details can be seen in the comments I left.
+    Basically, the User's personal space is also a special space that contains channels act like chats,
+    other spaces are public (means shared like Discord servers) with channels for communication~
+
+Ryan June 28th 11:56 AM:
+    I just completed dynamic routing work, so now the navigation of between spaces is finally working instead of just being a layout.
+    The border of the spaces is also bolder to indicate which space you're on.
+    NextStep:
+    1. Implement Channels (Secondary Navbar)
+    2. Implement Chatting channels
+    3. Implement the Board UI
+
+Ryan June 26th 11:31 AM:
+    1. Added our custom color palette to the tailwind.css config, commited to front-end branch
+    2. More layouts are completed, now you can see the navbar on the left-side, although functionality is not yet implemented~
+    NextStep:
+        1. I'll make the functionality work
+        2. Make things pretteir?
+        3. Actually start making those pages like channels, and attempt to make a board (canvas)?
+
+Ryan June 25th 5:57 PM:
+    Summary: I built a simple front-end layout for the HomeSpace today, space = server.
+    Notes:
+        * The features aren't completed yet, they are there to show a general layout.
+        * The Dummies folder is consists of some dummy data only for development before we have a fully usable back-end, feel free to modify the file~
+    Details see in the front-end journal...
+
 Ryan June 24th 3:00 PM:
     Sup Brandon! 
     I made this folder bc I think it's very convenient to just leave notes here and inform the other person what we've worked on and what we will do~
