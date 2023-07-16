@@ -5,7 +5,21 @@ const nextConfig = {
     domains: [
       'tinyurl.com'
     ],
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/spaces',
+        permanent: true
+      },
+      {
+        source: '/spaces',
+        destination: '/spaces/@_@me',
+        permanent: true
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

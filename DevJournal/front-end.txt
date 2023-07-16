@@ -1,3 +1,13 @@
+Ryan Jul 15th 9:32 PM:
+    Modified a lot of the previous components, like what I said in the General Journal.
+
+    Anyways, the UI is funcioning and tested, shouldn't be much bug.
+    Notice we're using tons of Dummy-Variables here, those will be replaced with actual data when we go to production w/ a functional back-end.
+
+    Demand:
+        1. Needing Board component to be done
+        2. Other text/DM channels are also in demand for the next step~
+
 Ryan June 29th 11:14 AM:
     Due to the change in the data structure, I organized the front-end code a little bit and added more comments to explain.
     Also, the UI for NavSecondary can be modified as we the data structure for Channels and Spaces are clear~

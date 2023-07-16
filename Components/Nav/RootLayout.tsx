@@ -17,7 +17,9 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
         {/* This is a margin for the children */}
         <Spacebar className='w-220' />
         
-        {children}
+        <div className="ml-[220px]">
+            {children}
+        </div>
     </div>
     );
 }

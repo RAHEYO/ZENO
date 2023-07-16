@@ -9,6 +9,13 @@ export type Channel = {
 }
 
 const dummyChannels: Channel[] = [
+    {
+        id: dummyUserSpaceId,
+        space_id: dummyUserSpaceId,
+        name: 'Home',
+        category: 'Chat',
+        settings: {}
+    },
     { 
         id: 'UserSpace0',
         space_id: dummyUserSpaceId,
@@ -40,7 +47,7 @@ const dummyChannels: Channel[] = [
     { 
         id: '1',
         space_id: '0',
-        name: 'Dev',
+        name: 'Dev Team',
         category: '',
         settings: {}
     },

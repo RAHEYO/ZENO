@@ -1,3 +1,18 @@
+Ryan Jul 15th 9:32 PM:
+    Note:
+        After pulling this commit, make sure to clear the LocalStorage cache once again as the keys are updated~
+
+    1. Huge change to the Routing System, navigation between spaces and channels fully functional, a working intuitive UI.
+        * Using "{space.id}/{channel.id}" for url link rather than "{space.name}/{channel.name}"
+    2. Added @_@me page to particularly render the Personal Dashboard that contains more user specific functions than a normal channel
+        * Ex. navigating to profiles, user settings, tracking analytics, etc..
+    
+    NextStep:
+        * Complete the @_@me page
+        * Make UI for user to manage the account~
+        * Make a text channel~
+    
+
 Ryan Jul 3rd 11:14 AM:
     Added routing functionality between channels~
     Notice: I also changed the file path conventions in the components folder, moved files around so just a heads up~

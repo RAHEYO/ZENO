@@ -10,8 +10,8 @@ type ChannelItemProps = {
 
 const ChannelItem: FC<ChannelItemProps> = ({ channel, channelRoute }): JSX.Element => {
     return (
-        <Link href={channelRoute}>
-            <span>{ channel.name }</span>
+        <Link className='pl-2' href={channelRoute}>
+            <span>/ { channel.name }</span>
         </Link>
     );
 };

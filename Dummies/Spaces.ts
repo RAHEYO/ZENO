@@ -1,4 +1,4 @@
-export const dummyUserSpaceId = '@me';
+export const dummyUserSpaceId = '@_@me';
 
 export type Space = {
     id: string, // The unique id of the space, the User's personal space has a unique id same as its own user.id
