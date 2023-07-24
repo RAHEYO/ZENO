@@ -13,11 +13,8 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     return (
     <div className='w-screen h-screen flex-row bg-background border-neutral text-foreground'>
         <RootNavbar />
-
-        {/* This is a margin for the children */}
-        <Spacebar className='w-220' />
         
-        <div className="ml-[220px]">
+        <div className="ml-[220px] bg-background">
             {children}
         </div>
     </div>

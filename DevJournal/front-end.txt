@@ -1,3 +1,10 @@
+Ryan Jul 23rd 9:36 PM:
+    Made [...name] to automatically display a TextChannel, later we will determine the type of channel first before rendering~
+    TextChannel and Message component both use Messages and Users dummy data, the relational ids interacting btw different types of data do in fact match, e.g message.sender == user.id
+
+    Notes:
+        The layout rn is kinda gross, I'll modify it them later, rn I'm trying get big structures set.
+
 Ryan Jul 15th 9:32 PM:
     Modified a lot of the previous components, like what I said in the General Journal.
 

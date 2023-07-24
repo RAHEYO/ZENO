@@ -1,3 +1,13 @@
+Ryan Jul 23rd 9:36 PM:
+    Did:
+        Finished basic TextChannel layouts.
+        Added Messages and Users dummy data.
+    
+    Details see front-end journal.
+
+    NextStep:
+        Implement TextChannel functionalities such as commenting and typing messages, managing channels~ (SO MUUUUCHHHH WORRKKKK!!!)
+
 Ryan Jul 15th 9:32 PM:
     Note:
         After pulling this commit, make sure to clear the LocalStorage cache once again as the keys are updated~
