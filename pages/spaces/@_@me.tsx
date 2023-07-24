@@ -15,5 +15,5 @@ const MePage: NextPage<MePageProps> = () => {
     </RootLayout>
     );
 }
-x
+
 export default MePage;
