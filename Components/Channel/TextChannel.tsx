@@ -15,7 +15,7 @@ const TextChannel: FC<TextChannelProps> = ({ channel }): JSX.Element => {
 
     return (
     <ChannelLayout channel={channel}>
-        <div className="px-5 flex flex-col bg-gradient-to-br from-neutral to-background">
+        <div className="px-5 pt-[70px] flex flex-col bg-gradient-to-br from-neutral to-background">
             {
                 messages.map((msg: Message) => <MessageComponent key={msg.id} message={msg} />)
             }
