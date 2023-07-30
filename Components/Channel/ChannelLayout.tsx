@@ -10,11 +10,13 @@ type ChannelLayoutProps = {
 
 const ChannelLayout: NextPage<ChannelLayoutProps> = ({ channel, children }) => {
     return (
-    <div>
-        { channel.name }
-        
+    <>
+        <div className="border-neutral border-b h-[70px]">
+            / { channel.name } (id: {channel.id})
+        </div>
+
         { children }
-    </div>
+    </>
     );
 }
 

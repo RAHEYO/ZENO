@@ -19,7 +19,10 @@ module.exports = {
         'primary': '#c0eee4',
         'secondary': '#ffcac8',
         'accent': '#ffe6c7',
-        'neutral': '#CFCFCF' // Shared between dark and light modes, often for dividers and stuff
+        'neutral': '#373A3F' // Shared between dark and light modes, often for dividers and stuff
+      },
+      opacity: {
+        '85': '.85'
       }
     },
   },
