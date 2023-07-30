@@ -20,10 +20,11 @@ const styles = ["bg-primary", "max-w-[40vw]", "max-h-[7.5vh]", "mx-auto", "flex"
     (prevStyle, currentStyle) => prevStyle + " " + currentStyle
 )
 
-const Toolbar: FC<ToolbarProps> = (): JSX.Element => {
+const Toolbar: FC<{}> = (): JSX.Element => {
 	return <div className={`toolbar ${styles}`}>
-		<Textbox style = "bg-[white] object-scale-down h-[7.5vh] w-[7.5vh]" />
-		
+		<div className={`toolbar ${styles}`}>
+			<Textbox style = "bg-[white] object-scale-down h-[7.5vh] w-[7.5vh]" />
+		</div>;
 	</div>;
 };
 

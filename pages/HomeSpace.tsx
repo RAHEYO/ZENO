@@ -9,9 +9,6 @@ const HomeSpace: NextPage<HomeSpaceProps> = () => {
 	return (
 		<RootLayout>
 			@_@ TO HomeSpace
-			<Toolbar>
-				
-			</Toolbar>
 		</RootLayout>
 	);
 };

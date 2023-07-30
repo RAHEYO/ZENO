@@ -13,7 +13,7 @@ const dummyChannels: Channel[] = [
         id: dummyUserSpaceId,
         space_id: dummyUserSpaceId,
         name: 'Home',
-        category: 'Chat',
+        category: 'Whiteboard',
         settings: {}
     },
     { 
