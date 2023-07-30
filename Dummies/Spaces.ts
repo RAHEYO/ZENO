@@ -35,7 +35,7 @@ const spaces: Space[] = [
     { 
         id: '3',
         name: 'Science Olympiad',
-        profilePic: 'https://tinyurl.com/Best-Science-Olympiad-Team',
+        profilePic: 'https://tinyurl.com/ApromMan',
         settings: {}
     },
     { 

@@ -59,7 +59,7 @@ const NavSecondary: FC<NavSecondaryProps> = ({ currentSpace }): JSX.Element => {
     return (
     <div className="flex flex-col w-[150px] h-full">
         <Link href={getDefaultChannelRoute()}>
-            <div className='h-[100px] flex bg-bar items-center justify-around'>
+            <div className='h-[100px] flex bg-neutral items-center justify-around'>
                 { currentSpace.name }
             </div>
         </Link>

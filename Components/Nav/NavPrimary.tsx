@@ -42,7 +42,7 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
         <Link href={getSpaceRoute(personalSpace.id)} onMouseDown={() => onNavigate(personalSpace.id)}>
             <Image className={getSpaceProfileStyle(personalSpace.id)} src={personalSpace.profilePic} alt="Profile Pic" width={50} height={50} />
         </Link>
-        <Divider direction={Direction.HORIZONTAL} thick={3} color='neutral' />
+        <Divider className='rounded-full w-full h-1 bg-neutral' />
 
         { // Normal spaces are rendered over here
             publicSpaces.map((space) => {
