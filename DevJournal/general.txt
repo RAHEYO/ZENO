@@ -1,3 +1,15 @@
+Ryan Aug 2nd 9:29PM:
+    Did:
+        Added dummy data for channel's settings, very basic rn but we can add more in the future~
+        Completed basic UI layout for navigating through channel settings.
+    
+    Details see front-end journal.
+
+    NextStep:
+        1. We gotta change the data type of user.id and channel.id and space.id all to numbers instead of strings (for future database performance purposes). Rn it's causing some trouble because route navigation depends on strings apparently
+        2. Actually compete the Channel management features, toggle a bunch of options and stuff~
+
+
 Ryan Jul 23rd 9:36 PM:
     Did:
         Finished basic TextChannel layouts.

@@ -40,7 +40,7 @@ const dummyChannels: Channel[] = [
     { 
         id: '0',
         space_id: '0',
-        name: 'General',
+            name: 'General',
         category: '',
         settings: {}
     },

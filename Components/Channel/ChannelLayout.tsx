@@ -27,7 +27,7 @@ const ChannelLayout: NextPage<ChannelLayoutProps> = ({ channel, children }) => {
             { children }
         </div>
 
-        <ChannelSettings isVisible={isSettingVisible} toggleWindow={toggleSettingsModal} />
+        <ChannelSettings isVisible={isSettingVisible} channel={channel} toggleWindow={toggleSettingsModal} />
 
     </>
     );
