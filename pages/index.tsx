@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
+import HomeSpace from './HomeSpace'
+
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+const DefaultHome = () => {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
@@ -115,4 +117,11 @@ export default function Home() {
       </div>
     </main>
   )
+}
+
+export default function Root() {
+  // return <DefaultHome />
+  return (
+    <HomeSpace />
+  );
 }

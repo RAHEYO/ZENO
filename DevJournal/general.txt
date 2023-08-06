@@ -1,3 +1,72 @@
+Ryan Aug 2nd 9:29PM:
+    Did:
+        Added dummy data for channel's settings, very basic rn but we can add more in the future~
+        Completed basic UI layout for navigating through channel settings.
+    
+    Details see front-end journal.
+
+    NextStep:
+        1. We gotta change the data type of user.id and channel.id and space.id all to numbers instead of strings (for future database performance purposes). Rn it's causing some trouble because route navigation depends on strings apparently
+        2. Actually compete the Channel management features, toggle a bunch of options and stuff~
+
+
+Ryan Jul 23rd 9:36 PM:
+    Did:
+        Finished basic TextChannel layouts.
+        Added Messages and Users dummy data.
+    
+    Details see front-end journal.
+
+    NextStep:
+        Implement TextChannel functionalities such as commenting and typing messages, managing channels~ (SO MUUUUCHHHH WORRKKKK!!!)
+
+Ryan Jul 15th 9:32 PM:
+    Note:
+        After pulling this commit, make sure to clear the LocalStorage cache once again as the keys are updated~
+
+    1. Huge change to the Routing System, navigation between spaces and channels fully functional, a working intuitive UI.
+        * Using "{space.id}/{channel.id}" for url link rather than "{space.name}/{channel.name}"
+    2. Added @_@me page to particularly render the Personal Dashboard that contains more user specific functions than a normal channel
+        * Ex. navigating to profiles, user settings, tracking analytics, etc..
+    
+    NextStep:
+        * Complete the @_@me page
+        * Make UI for user to manage the account~
+        * Make a text channel~
+    
+
+Ryan Jul 3rd 11:14 AM:
+    Added routing functionality between channels~
+    Notice: I also changed the file path conventions in the components folder, moved files around so just a heads up~
+
+Ryan June 29th 11:14 AM:
+    I added the Channels dummy data for developing the front-end, and also changed some data structure, details can be seen in the comments I left.
+    Basically, the User's personal space is also a special space that contains channels act like chats,
+    other spaces are public (means shared like Discord servers) with channels for communication~
+
+Ryan June 28th 11:56 AM:
+    I just completed dynamic routing work, so now the navigation of between spaces is finally working instead of just being a layout.
+    The border of the spaces is also bolder to indicate which space you're on.
+    NextStep:
+    1. Implement Channels (Secondary Navbar)
+    2. Implement Chatting channels
+    3. Implement the Board UI
+
+Ryan June 26th 11:31 AM:
+    1. Added our custom color palette to the tailwind.css config, commited to front-end branch
+    2. More layouts are completed, now you can see the navbar on the left-side, although functionality is not yet implemented~
+    NextStep:
+        1. I'll make the functionality work
+        2. Make things pretteir?
+        3. Actually start making those pages like channels, and attempt to make a board (canvas)?
+
+Ryan June 25th 5:57 PM:
+    Summary: I built a simple front-end layout for the HomeSpace today, space = server.
+    Notes:
+        * The features aren't completed yet, they are there to show a general layout.
+        * The Dummies folder is consists of some dummy data only for development before we have a fully usable back-end, feel free to modify the file~
+    Details see in the front-end journal...
+
 Ryan June 24th 3:00 PM:
     Sup Brandon! 
     I made this folder bc I think it's very convenient to just leave notes here and inform the other person what we've worked on and what we will do~
