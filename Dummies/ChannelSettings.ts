@@ -28,7 +28,7 @@ export type RolePermisionType = {
 
 // A list of dummy data for the settings
 export type ChannelSettingsType = {
-    channelId: string, // Same as channel id
+    channelId: number, // Same as channel id
     // General Settings
     channel_description: SettingOption
     
@@ -42,7 +42,7 @@ export type ChannelSettingsType = {
 // TODO: Add dummy data for channel settings
 const channelSettings: ChannelSettingsType[] = [
     {
-        channelId: "0",
+        channelId: 1,
         channel_description: "This is the channel for general chats abt AI!",
         roles: [
             {
@@ -61,7 +61,7 @@ const channelSettings: ChannelSettingsType[] = [
         members: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     },
     {
-        channelId: "1",
+        channelId: 2,
         channel_description: "Everything about the develompent of product!",
         roles: [
             {
@@ -80,7 +80,7 @@ const channelSettings: ChannelSettingsType[] = [
         members: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     },
     {
-        channelId: "2",
+        channelId: 3,
         channel_description: "Front-end developments!",
         roles: [
             {
@@ -99,7 +99,7 @@ const channelSettings: ChannelSettingsType[] = [
         members: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     },
     {
-        channelId: "3",
+        channelId: 4,
         channel_description: "Back-end!",
         roles: [
             {
@@ -118,7 +118,7 @@ const channelSettings: ChannelSettingsType[] = [
         members: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     },
     {
-        channelId: "4",
+        channelId: 5,
         channel_description: "Research!",
         roles: [
             {

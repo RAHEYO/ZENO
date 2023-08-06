@@ -1,7 +1,7 @@
-# Dev Dummy Constnats
+# Dev Dummy Constants
 
-- "@\_@me" - just for fun, it's the **default dummy route we're using**
-- "spaces/[space_id]/0" - by default we assume the default channel of every space has the id of "0", to be changed later. (Except for PS which has default board channel w/ channel.id = user.id)
+- currentUserId == 0 == dummySpaceId - we're assuming that the current user has an id of 1 (number) which will match the personal space id **default dummy route we're using**
+- "spaces/[space_id]/0" - by default we assume the default channel of every space has the id of 0, to be changed later. (Except for PS which has default board channel w/ channel.id = user.id)
 
 # Spaces
 
@@ -12,7 +12,7 @@
 
 - "/spaces/[space_id]/[channel_id]"
 - App by default redirects to DEFAULT*ROUTE = "/spaces/@*@me"; this shows the PS and displays default Board Channel
-- /spaces/[space_id] never exist by itself, the UI always have to render a channel of any space, however, except for PS which renders "/spaces/@_@me" equilvalent to "/spaces/@_@me/@\_@me/"
+- /spaces/[space_id] never exist by itself, the UI always have to render a channel of any space. However, except for PS which renders "/spaces/{currentUserId}" equilvalent to "/spaces/{currentUserId}/{userId}/"
 
 # Notes
 

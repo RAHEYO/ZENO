@@ -19,22 +19,26 @@ const RootNavbar: FC = (): JSX.Element => {
     // Update the localStorage whenever user click on a new Space
     // We need localStorage bc we're rendering this layout across all Spaces
     useEffect(() => {
+        
         // If the first time visiting, set it to the Homespace on default
         if (localStorage.getItem(NAV_SPACE_KEY) == null) {
-            localStorage.setItem(NAV_SPACE_KEY, dummyUserSpaceId);
+            localStorage.setItem(NAV_SPACE_KEY, dummyUserSpaceId.toString());
         } else {
             // If localStorage shows which space we're in, then update the state if different (scenario happens after navigated, new component with default state)
-            if (currentSpaceId !== localStorage.getItem(NAV_SPACE_KEY)) setCurrentSpaceId(localStorage.getItem(NAV_SPACE_KEY)!);
+            
+            let cachedNavSpaceId = parseInt(localStorage.getItem(NAV_SPACE_KEY)!);
+            
+            if (currentSpaceId != cachedNavSpaceId) setCurrentSpaceId(cachedNavSpaceId);
         }
     }, [currentSpaceId]);
 
     // Callback updating states when navigating
-    const updateSpaceId = (toId: string) => {
+    const updateSpaceId = (toId: number) => {
         // Prevent any duplicate actions:
-        if (toId === currentSpaceId) return;
+        if (toId == currentSpaceId) return;
         
         setCurrentSpaceId(toId);
-        localStorage.setItem(NAV_SPACE_KEY, toId);
+        localStorage.setItem(NAV_SPACE_KEY, toId.toString());
     }
 
     return (
