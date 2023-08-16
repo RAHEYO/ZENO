@@ -1,11 +1,11 @@
 import { FC } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { AllTools, Tool } from "./Toolbar";
 
 type ToolButtonProps = Tool & {
 	setSelectedTool: Function
-	icon?: string
-	children: React.ReactNode
+	icon?: StaticImageData
+	children?: React.ReactNode
 }
 
 
@@ -19,9 +19,8 @@ const ToolButton: FC<ToolButtonProps> = ({style, type, setSelectedTool, icon, ch
 		setSelectedTool(AllTools[key as keyof typeof AllTools])
 	}
 
-	if(typeof icon ==="string"){
+	if(icon){
 		return (
-				
 				<Image
 					className = {style}
 					src={icon}

@@ -1,8 +1,9 @@
 import { FC, useEffect } from "react";
-import Textbox from "./Textbox";
 
 import {IoShapesOutline} from "react-icons/io5"
 import ToolButton from "./ToolButton";
+
+import TextIcon from "./Tool-Icons/textboxIcon.png";
 
 export type Tool = {
 	style: string,
@@ -30,13 +31,15 @@ type ToolbarProps = {
 };
 
 
-const toolbarStyles = "bg-primary max-w-[40vw] max-h-[7.5vh] mx-auto flex justify-evenly"
+const toolbarStyles = "bg-primary max-w-[40vw] max-h-[7.5vh] mx-auto flex justify-around"
 
 const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element => {
 
 	return <div className={`toolbar ${toolbarStyles}`}>
 		<div className={`toolbar ${toolbarStyles}`}>
-			<Textbox type = "text" style = "bg-[white] object-scale-down h-[7.5vh] w-[7.5vh]" setSelectedTool = {setSelectedTool}/>
+
+			<ToolButton type = {AllTools.text.type} style = {AllTools.text.style} setSelectedTool={setSelectedTool} icon = {TextIcon} />
+		 
 			<ToolButton type = {AllTools.shape.type} style = {AllTools.shape.style + " bg-[black]"} setSelectedTool={setSelectedTool}>
 				<IoShapesOutline></IoShapesOutline>
 			</ToolButton>
