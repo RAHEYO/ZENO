@@ -30,7 +30,7 @@ const NavSecondary: FC<NavSecondaryProps> = ({ currentSpace }): JSX.Element => {
         
     
     // Generates channel route for navigation on-pressed
-    const generateChannelRoute = (channelId: string): string => {
+    const generateChannelRoute = (channelId: number): string => {
         return getChannelRoute(getSpaceRoute(currentSpace.id), channelId);
     }
 

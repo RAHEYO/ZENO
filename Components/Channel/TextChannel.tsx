@@ -11,7 +11,7 @@ type TextChannelProps = {
 }
 
 const TextChannel: FC<TextChannelProps> = ({ channel }): JSX.Element => {
-    const messages = dummyMessages.filter(msg => msg.channel_id === channel.id).sort((a, b) => a.time.getTime() - b.time.getTime());
+    const messages = dummyMessages.filter(msg => msg.channel_id == channel.id).sort((a, b) => a.time.getTime() - b.time.getTime());
 
     return (
     <ChannelLayout channel={channel}>

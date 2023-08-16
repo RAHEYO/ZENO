@@ -4,14 +4,14 @@ import { dummyUserSpaceId } from "@/Dummies/Spaces";
 import path from "path";
 
 // Returns the route of current space
-export const getSpaceRoute = (spaceId: string): string => {
+export const getSpaceRoute = (spaceId: number): string => {
 
-    return path.join('/spaces', spaceId);
+    return path.join('/spaces', spaceId.toString());
 }
 
 // Returns the route of the current channel inside the space
-export const getChannelRoute = (spaceRoute: string, channelId: string): string => {
-    return path.join(spaceRoute, channelId);
+export const getChannelRoute = (spaceRoute: string, channelId: number): string => {
+    return path.join(spaceRoute, channelId.toString());
 }
 
 
@@ -20,4 +20,4 @@ export const DEFAULT_ROUTE = getSpaceRoute(dummyUserSpaceId);
 
 // Dummy default channel id for all spaces => "0"
 // TODO: Use the actual user-specified default_channel_id instead~
-export const dummyDefaultChannelId = "0";
+export const dummyDefaultChannelId = dummyUserSpaceId;

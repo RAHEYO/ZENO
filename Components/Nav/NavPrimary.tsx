@@ -2,14 +2,14 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Divider, { Direction } from '../General/Divider';
+import Divider from '../General/Divider';
 import { Space, dummyUserSpaceId } from '../../Dummies/Spaces';
 import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/pages/spaces/Utils';
 
 type NavPrimaryProps = {
-    currentSpaceId: string,
+    currentSpaceId: number,
     spaces: Space[], 
-    onNavigate: (toId: string) => void
+    onNavigate: (toId: number) => void
 }
 
 const DEFAULT_SPACE_PROFILE_STYLE = 'rounded-xl border-neutral overflow-clip object-cover aspect-square';
@@ -17,12 +17,12 @@ const DEFAULT_MY_SPACE_PROFILE_STYLE = 'rounded-2xl border-neutral overflow-clip
 
 const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate }): JSX.Element => {
     // Border is bolder if the user is in the this current space
-    const getSpaceProfileStyle = (id: string) => {
-        const inCurrentSpace: boolean = currentSpaceId === id;
+    const getSpaceProfileStyle = (id: number) => {
+        const inCurrentSpace: boolean = currentSpaceId == id;
 
         if (inCurrentSpace) {
             // I made the Personal Space bigger to emphasize
-            if (id === dummyUserSpaceId) return DEFAULT_MY_SPACE_PROFILE_STYLE + ' border-[3px]';
+            if (id == dummyUserSpaceId) return DEFAULT_MY_SPACE_PROFILE_STYLE + ' border-[3px]';
 
             return DEFAULT_SPACE_PROFILE_STYLE + ' border-[3px]';
         } else {
@@ -30,8 +30,8 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
         }
     }
 
-    const personalSpace: Space = spaces.find(space => space.id === dummyUserSpaceId)!;
-    const publicSpaces: Space[] = spaces.filter(space => space.id !== dummyUserSpaceId);
+    const personalSpace: Space = spaces.find(space => space.id == dummyUserSpaceId)!;
+    const publicSpaces: Space[] = spaces.filter(space => space.id != dummyUserSpaceId);
 
     return (
     <div className="flex flex-col h-full w-[70px] bg-bar py-5 px-2 space-y-3 items-center">
@@ -49,7 +49,7 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
                 const { id, name, profilePic } = space;
                 
                 return (
-                    <Link key={id} href={getChannelRoute(getSpaceRoute(id), dummyDefaultChannelId)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>
+                    <Link key={id} href={getChannelRoute(getSpaceRoute(id), space.default_channel)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>
                         <Image className={getSpaceProfileStyle(id)} src={profilePic} width={45} height={45} alt={`${name} Profile`} />
                     </Link>
                 );
