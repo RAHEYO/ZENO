@@ -31,21 +31,29 @@ type ToolbarProps = {
 };
 
 
-const toolbarStyles = "bg-primary max-w-[40vw] max-h-[7.5vh] mx-auto flex justify-around"
+const toolbarStyles = "bg-primary max-w-[40vw] max-h-[7.5vh] mx-auto flex justify-evenly"
 
 const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element => {
 
 	return <div className={`toolbar ${toolbarStyles}`}>
-		<div className={`toolbar ${toolbarStyles}`}>
+	
 
-			<ToolButton type = {AllTools.text.type} style = {AllTools.text.style} setSelectedTool={setSelectedTool} icon = {TextIcon} />
-		 
-			<ToolButton type = {AllTools.shape.type} style = {AllTools.shape.style + " bg-[black]"} setSelectedTool={setSelectedTool}>
-				<IoShapesOutline></IoShapesOutline>
-			</ToolButton>
+				<ToolButton 
+					type = {AllTools.text.type} 
+					style = {AllTools.text.style} 
+					setSelectedTool={setSelectedTool} 
+					icon = {TextIcon} 
+				/>
 			
-		</div>;
-	</div>;
+				<ToolButton
+					type = {AllTools.shape.type}
+					style = {AllTools.shape.style + " bg-[black]"}
+					setSelectedTool={setSelectedTool}
+				>
+					<IoShapesOutline></IoShapesOutline>
+				</ToolButton>
+			
+			</div>;
 }; 
 
 
