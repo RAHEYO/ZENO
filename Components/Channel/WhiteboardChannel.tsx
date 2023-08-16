@@ -15,11 +15,15 @@ type WhiteboardChannelProps = {
 const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element => {
 	return (
 		<ChannelLayout channel={channel}>
-			<div id = "blank-whiteboard-space" className="h-[calc(100vh-75px)] bg-white">
+			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white">
 				
-	
+					<canvas>
+
+						
+					</canvas>
 					
-			
+					{/* I fudging understand what this does now lol, it pushes the components below
+					the title lol */}
 					<Spacebar className="h-[75px]" />
 				
 				<Toolbar />
