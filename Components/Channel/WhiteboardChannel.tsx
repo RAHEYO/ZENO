@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import Toolbar from "../Tools/Toolbar";
+import Toolbar, { Tool, AllTools } from "../Tools/Toolbar";
 import Icon from "./Tool-Icons/whiteboardIcon.svg";
 
 import { Channel } from '@/Dummies/Channels';
@@ -13,20 +13,29 @@ type WhiteboardChannelProps = {
 
 
 const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element => {
+
+
+	const canvasRef = useRef(null)
+
+	const [selectedTool, setSelectedTool] = useState <Tool> (AllTools.shape)
+
+	useEffect(() => {
+		alert(selectedTool.type)
+	}, [selectedTool])
+
+
 	return (
 		<ChannelLayout channel={channel}>
-			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white">
-				
-					<canvas>
-
-						
-					</canvas>
+			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white">	
 					
-					{/* I fudging understand what this does now lol, it pushes the components below
-					the title lol */}
-					<Spacebar className="h-[75px]" />
+				{/* I fudging understand what this does now lol, it pushes the components below
+				the title lol */}
+				<Spacebar className="h-[75px]" />
 				
-				<Toolbar />
+				<Toolbar selectedTool = {selectedTool} setSelectedTool={setSelectedTool}/>
+
+				<canvas ref = {canvasRef} />
+
 	
 			</div>
 		</ChannelLayout>
