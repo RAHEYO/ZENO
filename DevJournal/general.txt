@@ -1,3 +1,41 @@
+Ryan Aug 2nd 9:29PM:
+    Did:
+        Added dummy data for channel's settings, very basic rn but we can add more in the future~
+        Completed basic UI layout for navigating through channel settings.
+    
+    Details see front-end journal.
+
+    NextStep:
+        1. We gotta change the data type of user.id and channel.id and space.id all to numbers instead of strings (for future database performance purposes). Rn it's causing some trouble because route navigation depends on strings apparently
+        2. Actually compete the Channel management features, toggle a bunch of options and stuff~
+
+
+Ryan Jul 23rd 9:36 PM:
+    Did:
+        Finished basic TextChannel layouts.
+        Added Messages and Users dummy data.
+    
+    Details see front-end journal.
+
+    NextStep:
+        Implement TextChannel functionalities such as commenting and typing messages, managing channels~ (SO MUUUUCHHHH WORRKKKK!!!)
+
+Ryan Jul 15th 9:32 PM:
+    Note:
+        After pulling this commit, make sure to clear the LocalStorage cache once again as the keys are updated~
+
+    1. Huge change to the Routing System, navigation between spaces and channels fully functional, a working intuitive UI.
+        * Using "{space.id}/{channel.id}" for url link rather than "{space.name}/{channel.name}"
+    2. Added @_@me page to particularly render the Personal Dashboard that contains more user specific functions than a normal channel
+        * Ex. navigating to profiles, user settings, tracking analytics, etc..
+    
+    NextStep:
+        * Complete the @_@me page
+        * Make UI for user to manage the account~
+        * Make a text channel~
+    
+
+
 Ryan [for the past 10 days] Jul 12 7:29 PM:
     I added mysql2 to our project and tested, everything's working fine.
     Also I merged the front-end to this, so that now the back-end = mysql + front-end, leaving the front-end branch unchanged.
@@ -7,6 +45,7 @@ Ryan [for the past 10 days] Jul 12 7:29 PM:
 
     NextStep:
         * My focus would be mostly on the front-end now, it's where we gotta pay most of our efforts as we got a lot of features to cover. The faster we skim through the features, the more we know abt what we need for the back-end.
+
 
 Ryan Jul 3rd 11:14 AM:
     Added routing functionality between channels~
