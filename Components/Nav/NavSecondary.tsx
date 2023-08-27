@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Space, dummyUserSpaceId } from '@/Dummies/Spaces';
 import dummyChannels, { Channel } from '@/Dummies/Channels';
 import ChannelItem from './ChannelItem';
-import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/pages/spaces/Utils';
+import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/Utils/space';
 
 type NavSecondaryProps = {
     currentSpace: Space

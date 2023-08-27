@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Divider from '../General/Divider';
 import { Space, dummyUserSpaceId } from '../../Dummies/Spaces';
-import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/pages/spaces/Utils';
+import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/Utils/space';
 
 type NavPrimaryProps = {
     currentSpaceId: number,
