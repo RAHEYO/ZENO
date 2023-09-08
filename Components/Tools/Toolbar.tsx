@@ -1,6 +1,9 @@
 import { FC, useEffect } from "react";
 
 import {IoShapesOutline} from "react-icons/io5"
+import {FaPen} from "react-icons/fa";
+import { PiCursorFill } from "react-icons/pi";
+
 import ToolButton from "./ToolButton";
 
 import TextIcon from "./Tool-Icons/textboxIcon.png";
@@ -20,7 +23,15 @@ export const AllTools = {
 	"shape": {
 		style: toolStyle,
 		type: "shape",
-	}
+	},
+	"pen": {
+		style: toolStyle,
+		type: "pen",
+	},
+	"cursor": {
+		style: toolStyle,
+		type: "cursor",
+	},
 }
 
 
@@ -38,6 +49,14 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 	return <div className={`toolbar ${toolbarStyles}`}>
 	
 
+				<ToolButton
+					type = {AllTools.cursor.type}
+					style = {AllTools.cursor.style}
+					setSelectedTool={setSelectedTool}
+				>
+					<PiCursorFill style = {{color: "black"}} className="w-full h-full" />
+				</ToolButton>
+
 				<ToolButton 
 					type = {AllTools.text.type} 
 					style = {AllTools.text.style} 
@@ -47,10 +66,18 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 			
 				<ToolButton
 					type = {AllTools.shape.type}
-					style = {AllTools.shape.style + " bg-[black]"}
+					style = {AllTools.shape.style}
 					setSelectedTool={setSelectedTool}
 				>
-					<IoShapesOutline></IoShapesOutline>
+					<IoShapesOutline style = {{color: "black"}} className="w-full h-full" />
+				</ToolButton>
+
+				<ToolButton
+					type = {AllTools.pen.type}
+					style = {AllTools.pen.style}
+					setSelectedTool={setSelectedTool}
+				>
+					<FaPen style = {{color: "black"}} className="w-full h-full" />
 				</ToolButton>
 			
 			</div>;
