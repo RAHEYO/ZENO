@@ -4,6 +4,7 @@ import mysql, { ConnectionOptions, FieldPacket } from 'mysql2';
 type mysqlResponseType = mysql.OkPacket | mysql.RowDataPacket[] | mysql.RowDataPacket[][] | mysql.OkPacket[] | mysql.ProcedureCallPacket;
 
 const connectionOptions: ConnectionOptions = {
+  host: 'localhost',
   user: 'root',
   database: 'zeno',
 };

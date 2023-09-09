@@ -1,3 +1,13 @@
+Ryan Sept 8th 7:58PM:
+    Added sql files, preparing to connect with MySQL.
+    Added UserChannelBond object, which stores the relationship between an user and a channel containing the permissions information...
+
+    NextStep:
+        1. Modify the front-end to use this new data type.
+        2. Interact with an actual local database host.
+
+
+
 Ryan Jul 12 7:29 PM:
     pages/api/mysql.ts includes basic mysql 2 codes rn.
     For now it's only working locally on my machine, however, you can look through my slack messages on how to set mysql up on ur computer in case u wanna debug or play around~ (Feel free!)

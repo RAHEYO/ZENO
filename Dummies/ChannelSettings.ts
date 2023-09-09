@@ -4,14 +4,8 @@ export const settingCategories = [
     "Members"
 ];
 
-export type SettingOption = string | AccessibilityType | NotificationType;
+export type SettingOption = string | AccessibilityType;
 
-// The types of notificatin setting values a user decides to customizer, default to 0
-export enum NotificationType {
-    None=0,
-    Pins=1,
-    All=2,
-}
 
 // The type of accessibility for accounts in a channel, default to 2 (participate in both read and write)
 export enum AccessibilityType {
