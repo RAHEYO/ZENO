@@ -1,5 +1,6 @@
 // The permission that the user has with the channel
 export enum UserChannelPermission {
+    invisible=0,
     admin=1,
     write=2,
     read=3
