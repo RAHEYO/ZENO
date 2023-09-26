@@ -24,8 +24,8 @@ const ChannelSettings: FC<ChannelConfigProps> = ({ channel, isVisible, toggleWin
     // Extract the setting after matching the channel id with current the channel~
     const extractSettings = useCallback(() => {
         // TODO: Implement the interface to fetch the settings from the server to the client configuration of the channel
-        let members = dummyUserChannelBonds.filter(bond => bond.channel_id == channel.id).map(bond => bond.user_id);
-        let roles = dummyRoleRelations.filter(role => role.channel_id == channel.id);
+        let members = dummyUserChannelBonds.filter(bond => bond.channel_id == channel.id).map(bond => bond.user_id).sort(member => member);
+        let roles = dummyRoleRelations.filter(role => role.channel_id == channel.id).sort(role => role.id);
 
         const fetchedConfigs = {
             channel_name: channel.name,
