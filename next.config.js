@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const dotenv = require('dotenv');
+// Load environment variables
+dotenv.config();
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -26,7 +30,7 @@ const nextConfig = {
     } else {
       return `${new Date().getTime()}`;
     }
-  },
+  }
 }
 
 module.exports = nextConfig
