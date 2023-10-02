@@ -1,10 +1,8 @@
 //Note: run "npx ts-node pages/api/mysql.ts" to run a sql command
-// Replace command below with your own SQL query
-let query = 'SELECT * FROM messages'
 
 // Get the client
 import mysql, { ConnectionOptions, FieldPacket }  from 'mysql2';
-import env_var from '../../temp-env';
+require('dotenv').config() // Allows us to use .env files without running the entire application!
 
 type mysqlResponseType = mysql.OkPacket | mysql.RowDataPacket[] | mysql.RowDataPacket[][] | mysql.OkPacket[] | mysql.ProcedureCallPacket;
 
@@ -12,9 +10,13 @@ const connectionOptions: ConnectionOptions = {
   host: "localhost",
   user: "root",
   database: "zeno",
-  password: env_var.NEXT_PUBLIC_LOCAL_SERVER_PASS,
+  password: process.env['NEXT_PUBLIC_LOCAL_SERVER_PASS'],
 };
 const connection = mysql.createConnection(connectionOptions);
+
+
+// Replace command below with your own SQL query
+let query = 'SELECT * FROM messages'
 
 connection.connect((err) => {
   if (err) throw err;
