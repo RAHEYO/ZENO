@@ -4,7 +4,7 @@
 import mysql, { ConnectionOptions, FieldPacket }  from 'mysql2';
 require('dotenv').config() // Allows us to use .env files without running the entire application!
 
-type mysqlResponseType = mysql.OkPacket | mysql.RowDataPacket[] | mysql.RowDataPacket[][] | mysql.OkPacket[] | mysql.ProcedureCallPacket;
+type mysqlResponseType = mysql.RowDataPacket[] | mysql.RowDataPacket[][] | mysql.OkPacket[] | mysql.ProcedureCallPacket;
 
 const connectionOptions: ConnectionOptions = {
   host: "localhost",
@@ -14,27 +14,35 @@ const connectionOptions: ConnectionOptions = {
 };
 const connection = mysql.createConnection(connectionOptions);
 
-
-// Replace command below with your own SQL query
-let query = 'SELECT * FROM messages'
-
-connection.connect((err) => {
-  if (err) throw err;
-
-  console.log('Connected!');
+export const query = (query='SELECT * FROM users') => {
+  connection.connect((err) => {
+    if (err) {
+      console.error('DB Connection failed:');
+      throw err;
+    };
   
-  connection.query(
-    query,
-    function(err, results, fields) {
-    if (err) throw err;
-      console.log(results); // results contains rows returned by server
-    }
-    );
-  
+    console.log('Connected!');
+    
+    connection.query(
+      query,
+      function(err, results, fields) {
+        if (err) {
+          console.error('DB Query failed:');
+          throw err
+        };
 
-});
 
+        console.log(results); // results contains rows returned by server
+      }
+      );
 
+    connection.end(); // End the connection to the database
+
+  });
+
+}
+
+query();
   
 // Accessing mysql through this custom function
 const BENCHMARK_KEY = "MYSQL_EXECUTION";
