@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect} from "react";
+import { FC, useRef, useState, useEffect, MouseEvent} from "react";
 import Image from "next/image";
 import Toolbar, { Tool, AllTools } from "../Tools/Toolbar";
 import Icon from "./Tool-Icons/whiteboardIcon.svg";
@@ -13,22 +13,27 @@ type WhiteboardChannelProps = {
 }
 
 export type WhiteBoardItem = {
-	xPosition: Number,
-	yPosition: Number, 
+	xPosition: number,
+	yPosition: number, 
 	type: string
 }
 
-type Rect = {
-	width: Number,
-	height: Number
-}
 
+type CanvasDimensions = {
+	width: number, 
+	height:number, 
+	rows: number,
+	columns: number,
+	offset: number,
+}
 
 const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element => {
 
-	const initialBox = {width: 1920, height: 1080}
+	const INITIAL_BOX_DIMENSIONS = {width: 1920, height: 1080}
 
-	const canvasRef = useRef(null);
+	const GRID_SQUARE_DIMENSIONS = {width: 5, height: 5};
+
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	const [selectedTool, setSelectedTool] = useState <Tool> (AllTools.shape);
 
@@ -39,7 +44,14 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 	const [currentMouseDownPos, setCurrentMouseDownPos] = useState({x: 0, y: 0})
 	const [currentMouseUpPos, setCurrentMouseUpPos] = useState({x: 0, y: 0})
 
-	const [clientBox, setClientBox] = useState<Rect> (initialBox);
+	const [canvasDimensions, setCanvasDimensions] = useState<CanvasDimensions>({
+
+		width: INITIAL_BOX_DIMENSIONS.width, 
+		height: INITIAL_BOX_DIMENSIONS.height, 
+		rows: Math.floor(INITIAL_BOX_DIMENSIONS.height / GRID_SQUARE_DIMENSIONS.width),
+		columns: Math.floor(INITIAL_BOX_DIMENSIONS.width / GRID_SQUARE_DIMENSIONS.height),
+		offset: 0,
+	})
 		
 
 	const [widthToHeightRatio, setWidthToHeightRatio] = useState(1);
@@ -58,6 +70,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 			// Above function somehow has to map canvas onto their screen...
 
+
 		}
 	}, [selectedTool])
 
@@ -73,44 +86,61 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 	const handleMouseUp = (event : MouseEvent) => {
 		console.log(event)
+		setCurrentMouseUpPos({x: event.clientX, y: event.clientY})
 	}
 
 	
-
-	useEffect(() => {
-		window.addEventListener('mousedown', (event) => handleMouseDown(event));
-		window.addEventListener('mouseup', (event) => handleMouseUp(event));
-
-		return () => {
-			window.removeEventListener('mousedown', (event) => handleMouseDown(event));
-			window.removeEventListener('mouseup', (event) => handleMouseUp(event));
-		};
-	}, [])
 
 	useEffect(() => {
 
 		const xOffset = currentMouseUpPos.x - currentMouseDownPos.x
 		const yOffset = currentMouseUpPos.y - currentMouseDownPos.y
 		
-		if(whiteboardRef.current){
-			const widthDifference = initialBox.width - whiteboardRef.current.clientWidth;
-			const heightDifference =  initialBox.height - whiteboardRef.current.clientHeight;
-
-			const pixelAddition = Math.abs(widthDifference) > Math.abs(heightDifference) ? heightDifference : widthDifference;
-
-			setClientBox({width: whiteboardRef.current.clientWidth + pixelAddition, height: whiteboardRef.current.clientHeight + pixelAddition })
-
-
-			setWidthToHeightRatio(widthDifference/heightDifference)
+		if(whiteboardRef.current && canvasRef.current){
+			const ctx = canvasRef.current.getContext('2d');
+			if (ctx != null){
+				ctx.beginPath();
+				ctx.rect(xOffset, 20, 150, 100);
+				ctx.stroke();
+			}
 		}
 
-
+		console.log("woo")
 
 	}, [currentMouseUpPos])
 
+
+	useEffect(() => {
+		console.log(canvasDimensions)
+	}, [canvasDimensions])
+
+
+	// Creating bounds
+	useEffect(() => {
+
+		if(whiteboardRef.current){
+
+			// Gets angry if I use whiteboardRef.current directly T-T
+			const currentDimensions = whiteboardRef.current
+
+			setCanvasDimensions((prevDimensions) => {
+				return {
+					...prevDimensions,
+					width: currentDimensions.clientWidth, 
+					height: currentDimensions.clientHeight, 
+					rows: Math.floor(currentDimensions.clientHeight / GRID_SQUARE_DIMENSIONS.width),
+					columns: Math.floor(currentDimensions.clientWidth / GRID_SQUARE_DIMENSIONS.height),
+				}
+
+			})
+
+		}
+	}, [whiteboardRef.current?.clientWidth, whiteboardRef.current?.clientHeight])
+
+
 	return (
 		<ChannelLayout channel={channel}>
-			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white" ref = {whiteboardRef}>	
+			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white" ref = {whiteboardRef}  >	
 					
 				{/* I fudging understand what this does now lol, it pushes the components below
 				the title lol */}
@@ -118,7 +148,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 				
 				<Toolbar selectedTool = {selectedTool} setSelectedTool={setSelectedTool}/>
 
-				<canvas ref = {canvasRef} />
+				<canvas ref = {canvasRef} onMouseDown = {event => handleMouseDown(event)} onMouseUp = {event => handleMouseUp(event)}/>
 
 	
 			</div>
