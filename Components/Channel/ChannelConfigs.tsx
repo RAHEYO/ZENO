@@ -29,7 +29,7 @@ const ChannelSettings: FC<ChannelConfigProps> = ({ channel, isVisible, toggleWin
 
         const fetchedConfigs = {
             channel_name: channel.name,
-            channel_description: channel.desc,
+            channel_description: channel.description,
             roles: roles,
             members: members
         };

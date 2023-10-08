@@ -1,88 +1,111 @@
+// import { query } from '../pages/api/mysql';
+
 // The permission that the user has with the channel
 export enum UserChannelPermission {
-    invisible=0,
     admin=1,
     write=2,
-    read=3
+    read=3,
+    invisible=4
 }
 
 // Total number of RoleRelation objects in the Storage: O(rc)
 // where:
 // r - number of roles
 // c - number of channels in the space
+// u - number of users actually given a role in the space
 
 export type RoleRelation = {
-    id: number, // unique bigint id
     space_id: number, // space id used for searching (indexing)
-    name: string, // name of the role, E.X "moderator" or "poker jokers"
-    channel_id: number, // specific channel id this role has relations with
+    role_name: string, // name of the role, E.X "moderator" or "poker jokers"
+    channel_id: number, // specific channel id this role has relations with (indexing)
+    user_id: number, // user id used for searching (indexing)
     permissions: UserChannelPermission // the specific permissions configuration the role has with the channel
 }
 
 const roleRelations: RoleRelation[] = [
     {
-        id: 0,
         space_id: 1,
-        name: "moderator",
-        channel_id: 0,
+        role_name: "moderator",
+        channel_id: 2,
+        user_id: 1,
         permissions: UserChannelPermission.admin
     },
     {
-        id: 1,
         space_id: 1,
-        name: "developer",
-        channel_id: 0,
+        role_name: "developer",
+        channel_id: 2,
+        user_id: 1,
         permissions: UserChannelPermission.admin
     },
     {
-        id: 2,
         space_id: 1,
-        name: "poker clowns",
-        channel_id: 1,
-        permissions: UserChannelPermission.admin
+        role_name: "poker clowns",
+        channel_id: 2,
+        user_id: 1,
+        permissions: UserChannelPermission.write
     },
     {
-        id: 3,
         space_id: 2,
-        name: "moderator",
-        channel_id: 0,
+        role_name: "moderator",
+        channel_id: 9,
+        user_id: 1,
         permissions: UserChannelPermission.admin
     },
     {
-        id: 4,
         space_id: 2,
-        name: "moderator",
-        channel_id: 0,
-        permissions: UserChannelPermission.admin
+        role_name: "programmer",
+        channel_id: 9,
+        user_id: 1,
+        permissions: UserChannelPermission.read
     },
     {
-        id: 5,
         space_id: 2,
-        name: "moderator",
-        channel_id: 0,
-        permissions: UserChannelPermission.admin
+        role_name: "designer",
+        channel_id: 9,
+        user_id: 1,
+        permissions: UserChannelPermission.write
     },
     {
-        id: 6,
         space_id: 2,
-        name: "moderator",
-        channel_id: 0,
-        permissions: UserChannelPermission.admin
+        role_name: "designer",
+        channel_id: 10,
+        user_id: 1,
+        permissions: UserChannelPermission.read
     },
     {
-        id: 7,
         space_id: 3,
-        name: "moderator",
-        channel_id: 0,
+        role_name: "admin",
+        channel_id: 11,
+        user_id: 1,
         permissions: UserChannelPermission.admin
     },
     {
-        id: 8,
         space_id: 4,
-        name: "moderator",
-        channel_id: 0,
+        role_name: "daddy",
+        channel_id: 12,
+        user_id: 1,
+        permissions: UserChannelPermission.read
+    },
+    {
+        space_id: 5,
+        role_name: "instructor",
+        channel_id: 13,
+        user_id: 1,
+        permissions: UserChannelPermission.admin
+    },
+    {
+        space_id: 6,
+        role_name: "moderator",
+        channel_id: 14,
+        user_id: 1,
         permissions: UserChannelPermission.admin
     },
 ];
+
+// roleRelations.forEach((roleRelation, _) => {
+//     const queryString = `INSERT INTO role_relations (space_id, role_name, channel_id, user_id, permissions) VALUES (${roleRelation.space_id}, '${roleRelation.role_name}', ${roleRelation.channel_id}, ${roleRelation.user_id}, ${roleRelation.permissions});`;
+//     console.log(queryString);
+//     query(queryString);
+// });
 
 export default roleRelations;

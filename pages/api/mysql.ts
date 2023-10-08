@@ -12,9 +12,9 @@ const connectionOptions: ConnectionOptions = {
   database: "zeno",
   password: process.env['NEXT_PUBLIC_LOCAL_SERVER_PASS'],
 };
-const connection = mysql.createConnection(connectionOptions);
 
 export const query = (query='SELECT * FROM users') => {
+  const connection = mysql.createConnection(connectionOptions);
   connection.connect((err) => {
     if (err) {
       console.error('DB Connection failed:');
@@ -41,12 +41,12 @@ export const query = (query='SELECT * FROM users') => {
   });
 
 }
-
-query();
   
 // Accessing mysql through this custom function
 const BENCHMARK_KEY = "MYSQL_EXECUTION";
 const exec = (query: string, callback: (err: mysql.QueryError, result: mysqlResponseType, fields: FieldPacket[]) => void) => {
+  const connection = mysql.createConnection(connectionOptions);
+
   console.warn(`Query started: ${query}`); // Shows exactly what we're querying
   console.time(BENCHMARK_KEY); // Shows a benchmark of query performance
 

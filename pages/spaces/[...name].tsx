@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router'
-import path from 'path';
 
 import dummyChannels from '@/Dummies/Channels';
 import RootLayout from '@/Components/Nav/RootLayout';
@@ -15,19 +14,18 @@ type SpacePageProps = {
 const SpacePage: NextPage<SpacePageProps> = () => {
     const router = useRouter();
     const pagePath = router.asPath;
-    const channelId = parseInt(path.basename(pagePath));
+    const props = pagePath.split('spaces/')[pagePath.split('spaces/').length - 1];
+    const spaceId = parseInt(props.split('/')[0]);
 
-    const fetchedChannel = dummyChannels.find(channel => channel.id == channelId);   
-
-    if (!fetchedChannel) return null;
-
-    if (fetchedChannel.id == dummyUserSpaceId) {
+    if (spaceId == dummyUserSpaceId || Number.isNaN(spaceId)) {
         return <MeSpace />
     }
 
+    const fetchedChannel = dummyChannels.find(channel => channel.space_id == spaceId);   
+
     return (
     <RootLayout>
-        <TextChannel channel={fetchedChannel} />
+        { fetchedChannel && <TextChannel channel={fetchedChannel} /> }
     </RootLayout>
     );
 }

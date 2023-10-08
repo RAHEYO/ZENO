@@ -63,7 +63,7 @@ const ChannelPermissionConfigs: FC<ChannelPermissionConfigsProps> = ({ channelSe
             {
             roleRelations.map((role, index) => 
             <li key={role.id} className='w-full flex flex-row'>
-                <span>{role.name}</span>
+                <span>{role.role_name}</span>
                 
                 <Spacebar className='w-10' />
                 

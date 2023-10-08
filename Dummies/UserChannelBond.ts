@@ -1,10 +1,4 @@
-// The permission that the user has with the channel
-export enum UserChannelPermission {
-    invisible=0,
-    admin=1,
-    write=2,
-    read=3
-}
+import { UserChannelPermission } from "./RoleRelation";
 
 // The types of notificatin setting values a user decides to customizer, default to 0
 export enum NotificationType {
@@ -23,37 +17,37 @@ export type UserChannelBond = {
 
 const userSpaceBonds: UserChannelBond[] = [
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 1,
         permissions: UserChannelPermission.admin,
         notification_type: NotificationType.All
     },
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 2,
         permissions: UserChannelPermission.admin,
         notification_type: NotificationType.Pins
     },
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 3,
         permissions: UserChannelPermission.write,
         notification_type: NotificationType.All
     },
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 4,
         permissions: UserChannelPermission.read,
         notification_type: NotificationType.All
     },
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 5,
         permissions: UserChannelPermission.admin,
         notification_type: NotificationType.None
     },
     {
-        user_id: 0,
+        user_id: 1,
         channel_id: 6,
         permissions: UserChannelPermission.read,
         notification_type: NotificationType.None

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Divider from '../General/Divider';
 import { Space, dummyUserSpaceId } from '../../Dummies/Spaces';
-import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/Utils/space';
+import { getChannelRoute, getSpaceRoute } from '@/Utils/space';
 
 type NavPrimaryProps = {
     currentSpaceId: number,
@@ -40,13 +40,13 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
         TODO: Change to real profile picture 
         */}
         <Link href={getSpaceRoute(personalSpace.id)} onMouseDown={() => onNavigate(personalSpace.id)}>
-            <Image className={getSpaceProfileStyle(personalSpace.id)} src={personalSpace.profilePic} alt="Profile Pic" width={50} height={50} />
+            <Image className={getSpaceProfileStyle(personalSpace.id)} src={personalSpace.profile_pic} alt="Profile Pic" width={50} height={50} />
         </Link>
         <Divider className='rounded-full w-full h-1 bg-neutral' />
 
         { // Normal spaces are rendered over here
             publicSpaces.map((space) => {
-                const { id, name, profilePic } = space;
+                const { id, name, profile_pic: profilePic } = space;
                 
                 return (
                     <Link key={id} href={getChannelRoute(getSpaceRoute(id), space.default_channel)} onMouseDown={() => onNavigate(id)} className='hover:scale-105 transition'>

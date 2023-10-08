@@ -1,4 +1,4 @@
-import { query } from "../pages/api/mysql";
+// import { query } from "../pages/api/mysql";
 
 export type User = {
     id: number,
@@ -58,12 +58,12 @@ const dummyUsers: User[] = [
     },
 ];
 
-dummyUsers.forEach((user, index) => {
-    const queryString = `INSERT INTO users (id, space, username, email, pass, pic) VALUES (${user.id}, ${user.space}, "${user.username}", "${user.email}", "${user.pass}", "${user.pic}");`;
-    console.log(queryString);
-    query(
-        queryString
-        );
-});
+// dummyUsers.forEach((user, index) => {
+//     const queryString = `INSERT INTO users (id, space, username, email, pass, pic) VALUES (${user.id}, ${user.space}, "${user.username}", "${user.email}", "${user.pass}", "${user.pic}");`;
+//     console.log(queryString);
+//     query(
+//         queryString
+//         );
+// });
 
 export default dummyUsers;

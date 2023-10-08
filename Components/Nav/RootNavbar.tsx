@@ -19,7 +19,6 @@ const RootNavbar: FC = (): JSX.Element => {
     // Update the localStorage whenever user click on a new Space
     // We need localStorage bc we're rendering this layout across all Spaces
     useEffect(() => {
-        
         // If the first time visiting, set it to the Homespace on default
         if (localStorage.getItem(NAV_SPACE_KEY) == null) {
             localStorage.setItem(NAV_SPACE_KEY, dummyUserSpaceId.toString());
