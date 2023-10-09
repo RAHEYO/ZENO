@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Divider from '../General/Divider';
-import { Space, dummyUserSpaceId } from '../../Dummies/Spaces';
+import { Space, dummyUserSpaceId } from '@/pages/api/Space';
 import { getChannelRoute, getSpaceRoute } from '@/Utils/space';
 
 type NavPrimaryProps = {
@@ -39,7 +39,7 @@ const NavPrimary: FC<NavPrimaryProps> = ({ currentSpaceId, spaces, onNavigate })
         User's perosnal space specifically rendered at the top -
         TODO: Change to real profile picture 
         */}
-        <Link href={getSpaceRoute(personalSpace.id)} onMouseDown={() => onNavigate(personalSpace.id)}>
+        <Link href={getChannelRoute(getSpaceRoute(personalSpace.id), personalSpace.default_channel)} onMouseDown={() => onNavigate(personalSpace.id)}>
             <Image className={getSpaceProfileStyle(personalSpace.id)} src={personalSpace.profile_pic} alt="Profile Pic" width={50} height={50} />
         </Link>
         <Divider className='rounded-full w-full h-1 bg-neutral' />

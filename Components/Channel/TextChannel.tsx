@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { Channel } from '@/Dummies/Channels';
-import dummyMessages, { Message } from '@/Dummies/Messages';
+import { Channel } from '@/pages/api/Channel';
+import dummyMessages, { Message } from '@/pages/api/Message';
 import ChannelLayout from './ChannelLayout';
 import MessageComponent from './Message';
 import Spacebar from '../General/Spacebar';

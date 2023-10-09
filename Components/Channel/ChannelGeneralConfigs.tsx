@@ -1,6 +1,6 @@
 import { FC , useEffect, useState } from 'react';
 
-import { ChannelConfigsType } from '@/Dummies/ChannelConfigs';
+import { ChannelConfigsType } from '@/pages/api/ChannelConfig';
 import Spacebar from '../General/Spacebar';
 
 type ChannelGeneralConfigsProps = {

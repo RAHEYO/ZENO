@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import dummySpaces, { dummyUserSpaceId } from '../../Dummies/Spaces';
+import dummySpaces, { dummyUserSpaceId } from '@/pages/api/Space';
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
 

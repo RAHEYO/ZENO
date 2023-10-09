@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react';
 
 import Spacebar from '../General/Spacebar';
-import { ChannelConfigsType } from '@/Dummies/ChannelConfigs';
-import { UserChannelPermission } from '@/Dummies/RoleRelation';
+import { ChannelConfigsType } from '@/pages/api/ChannelConfig';
+import { UserChannelPermission } from '@/pages/api/RoleRelation';
 
 type ChannelPermissionConfigsProps = {
     channelSettings: ChannelConfigsType

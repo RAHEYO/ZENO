@@ -1,5 +1,3 @@
-// import { query } from '../pages/api/mysql';
-
 // By default we assume the current user has the id of 0, which infers that the personal space matches the user's id as well
 export const dummyUserSpaceId = 1;
 
@@ -9,9 +7,13 @@ export type Space = {
     profile_pic: string, // Like the url src of an img
     default_channel: number, // The default channel id of the space
     roles: string[] // The roles of the space
+};
+
+export const fetchUserSpaces = (userId: number): string => {
+    return `SELECT * FROM users WHERE id = ${userId}`;
 }
 
-const spaces: Space[] = [
+const dummySpaces: Space[] = [
     { // This one is particularly the user's personal space, a dummy user space
         id: 1,
         name: 'me',
@@ -92,4 +94,4 @@ const spaces: Space[] = [
 //     query(queryString);
 // });
 
-export default spaces;
+export default dummySpaces;

@@ -1,5 +1,4 @@
-// import { query } from "../pages/api/mysql";
-import { dummyUserSpaceId } from "./Spaces";
+import { dummyUserSpaceId } from "./Space";
 
 const enum ChannelCategory {
     Chat=1,
@@ -12,6 +11,14 @@ export type Channel = {
     name: string,
     description: string,
     category: ChannelCategory, // Which category (type of channel) that it belongs to
+}
+
+export const fetchSpaceChannels = (space_id: number): string => {
+    return `SELECT * FROM channels WHERE space_id = ${space_id}`;
+}
+
+export const fetchChannelById = (channel_id: number): string => {
+    return `SELECT * FROM channels WHERE id = ${channel_id}`;
 }
 
 const dummyChannels: Channel[] = [

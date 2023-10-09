@@ -1,8 +1,8 @@
 import { FC, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-import { Space, dummyUserSpaceId } from '@/Dummies/Spaces';
-import dummyChannels, { Channel } from '@/Dummies/Channels';
+import { Space, dummyUserSpaceId } from '@/pages/api/Space';
+import dummyChannels, { Channel } from '@/pages/api/Channel';
 import ChannelItem from './ChannelItem';
 import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/Utils/space';
 

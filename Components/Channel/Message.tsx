@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Image from 'next/image';
 
-import { Message } from '../../Dummies/Messages'
-import dummyUsers from '@/Dummies/User';
+import { Message } from '@/pages/api/Message'
+import dummyUsers from '@/pages/api/User';
 import Spacebar from '../General/Spacebar';
 
 type MessageProps = {

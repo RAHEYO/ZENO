@@ -1,4 +1,4 @@
-// import { query } from '../pages/api/mysql';
+// import { myQuery } from '../pages/api/mysql';
 
 // The permission that the user has with the channel
 export enum UserChannelPermission {

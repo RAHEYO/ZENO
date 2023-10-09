@@ -1,6 +1,6 @@
 // A utils file that basically contains a bunch of functions shared in multiple places,
 // it is better to define them in a singular file so we only need to change 1 place whenever there is a need for a fix
-import { dummyUserSpaceId } from "@/Dummies/Spaces";
+import { dummyUserSpaceId } from "@/pages/api/Space";
 import path from "path";
 
 // Returns the route of current space

@@ -1,10 +1,10 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 
-import  { ChannelConfigsType, channelConfigCategories } from '@/Dummies/ChannelConfigs';
-import dummyUserChannelBonds from '@/Dummies/UserChannelBond';
-import dummyRoleRelations from '@/Dummies/RoleRelation';
-import { Channel } from '@/Dummies/Channels';
+import  { ChannelConfigsType, channelConfigCategories } from '@/pages/api/ChannelConfig';
+import dummyUserChannelBonds from '@/pages/api/UserChannelBond';
+import dummyRoleRelations from '@/pages/api/RoleRelation';
+import { Channel } from '@/pages/api/Channel';
 import Spacebar from '../General/Spacebar';
 import SettingCategory from '../General/SettingCategory';
 import ChannelGeneralConfigs from './ChannelGeneralConfigs';
@@ -25,7 +25,7 @@ const ChannelSettings: FC<ChannelConfigProps> = ({ channel, isVisible, toggleWin
     const extractSettings = useCallback(() => {
         // TODO: Implement the interface to fetch the settings from the server to the client configuration of the channel
         let members = dummyUserChannelBonds.filter(bond => bond.channel_id == channel.id).map(bond => bond.user_id).sort(member => member);
-        let roles = dummyRoleRelations.filter(role => role.channel_id == channel.id).sort(role => role.id);
+        let roles = dummyRoleRelations.filter(role => role.channel_id == channel.id);
 
         const fetchedConfigs = {
             channel_name: channel.name,
