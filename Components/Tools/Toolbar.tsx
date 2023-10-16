@@ -42,7 +42,7 @@ type ToolbarProps = {
 };
 
 
-const toolbarStyles = "bg-primary max-w-[40vw] max-h-[7.5vh] mx-auto flex justify-evenly"
+const toolbarStyles = "bg-primary min-w-[40vw] max-w-[60vw] max-h-[7.5vh] mx-auto flex justify-evenly z-10 absolute left-1/3"
 
 const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element => {
 

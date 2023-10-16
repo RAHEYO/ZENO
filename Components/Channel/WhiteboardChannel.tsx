@@ -3,6 +3,10 @@ import Image from "next/image";
 import Toolbar, { Tool, AllTools } from "../Tools/Toolbar";
 import Icon from "./Tool-Icons/whiteboardIcon.svg";
 
+import useWindowDimensions from "../Hooks/UseWindow";
+
+import Draggable, { DraggableCore } from "react-draggable";
+
 import { Channel } from '@/Dummies/Channels';
 import ChannelLayout from "./ChannelLayout";
 import Spacebar from "../General/Spacebar";
@@ -44,6 +48,8 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 	const [currentMouseDownPos, setCurrentMouseDownPos] = useState({x: 0, y: 0})
 	const [currentMouseUpPos, setCurrentMouseUpPos] = useState({x: 0, y: 0})
 
+	const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+
 	const [canvasDimensions, setCanvasDimensions] = useState<CanvasDimensions>({
 
 		width: INITIAL_BOX_DIMENSIONS.width, 
@@ -57,7 +63,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 	const [widthToHeightRatio, setWidthToHeightRatio] = useState(1);
 
 	useEffect(() => {
-		alert(selectedTool.type)
+		console.log(selectedTool.type)
 
 		switch (selectedTool.type){ 
 			case AllTools.shape.type:
@@ -93,6 +99,13 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 	useEffect(() => {
 
+
+		console.log("currentMouseUpPos.x: " + currentMouseUpPos.x)
+		console.log("currentMouseDownPos.x: " + currentMouseDownPos.x)
+		console.log("currentMouseUpPos.y: " + currentMouseUpPos.y)
+		console.log("currentMouseDownPos.y: " + currentMouseDownPos.y)
+
+
 		const xOffset = currentMouseUpPos.x - currentMouseDownPos.x
 		const yOffset = currentMouseUpPos.y - currentMouseDownPos.y
 		
@@ -100,7 +113,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 			const ctx = canvasRef.current.getContext('2d');
 			if (ctx != null){
 				ctx.beginPath();
-				ctx.rect(xOffset, 20, 150, 100);
+				ctx.rect( currentMouseDownPos.x, currentMouseDownPos.y, xOffset, yOffset);
 				ctx.stroke();
 			}
 		}
@@ -140,17 +153,31 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 	return (
 		<ChannelLayout channel={channel}>
-			<div id = "blank-whiteboard-space" className="h-[calc(100vh-70px)] bg-white" ref = {whiteboardRef}  >	
-					
-				{/* I fudging understand what this does now lol, it pushes the components below
-				the title lol */}
-				<Spacebar className="h-[75px]" />
+			<Spacebar className="h-[75px]" />
+			<div id = "blank-whiteboard-space" className="h-[calc(100vh-145px)] bg-white relative" ref = {whiteboardRef}  >	
+				
 				
 				<Toolbar selectedTool = {selectedTool} setSelectedTool={setSelectedTool}/>
 
-				<canvas ref = {canvasRef} onMouseDown = {event => handleMouseDown(event)} onMouseUp = {event => handleMouseUp(event)}/>
+				<Draggable bounds = "parent">
+				{/* <Draggable bounds = {{left:220, top:145, right: windowWidth, bottom: windowHeight}}>*/}
+					
+					<h1 className = "w-[50px] h-[50px] bg-black">HIII</h1>
+				</Draggable>
+			
+				{/* <canvas 
+					width = {`${whiteboardRef.current?.offsetWidth}`} 
+					height = {`${whiteboardRef.current?.offsetHeight}`} 
+					ref = {canvasRef} 
+					onMouseDown = {event => handleMouseDown(event)} 
+					onMouseUp = {event => handleMouseUp(event) }
+				>
 
-	
+		
+				
+
+				</canvas>
+	 */}
 			</div>
 		</ChannelLayout>
 		);
