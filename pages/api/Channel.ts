@@ -1,6 +1,6 @@
 import { dummyUserSpaceId } from "./Space";
 
-const enum ChannelCategory {
+export const enum ChannelCategory {
     Chat=1,
     Board=2
 };
@@ -14,11 +14,11 @@ export type Channel = {
 }
 
 export const fetchSpaceChannels = (space_id: number): string => {
-    return `SELECT * FROM channels WHERE space_id = ${space_id}`;
+    return `SELECT id, space_id, name, category+0 FROM channels WHERE space_id = ${space_id};`;
 }
 
-export const fetchChannelById = (channel_id: number): string => {
-    return `SELECT * FROM channels WHERE id = ${channel_id}`;
+export const fetchChannelByIdGeneral = (channel_id: number): string => {
+    return `SELECT id, space_id, name, category+0 FROM channels WHERE id = ${channel_id}`;
 }
 
 const dummyChannels: Channel[] = [

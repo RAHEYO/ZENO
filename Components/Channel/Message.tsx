@@ -11,7 +11,7 @@ type MessageProps = {
 
 const Message: FC<MessageProps> = ({ message }): JSX.Element => {
     const sender = dummyUsers.find(user => user.id == message.sender)!;
-
+    // console.warn(sender);
 
     return (
     <div className="py-3 flex flex-row">
@@ -24,7 +24,7 @@ const Message: FC<MessageProps> = ({ message }): JSX.Element => {
             <div className='flex flex-row'>
                 {sender.username}
                 <Spacebar className="w-3" />
-                {message.time.toLocaleString()}
+                {message.sent_time.toLocaleString()}
             </div>
 
             <Spacebar className='h-1' />

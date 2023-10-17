@@ -10,9 +10,10 @@ CREATE TABLE messages (
     fulltext (content)
 );
 
-ALTER TABLE messages add fulltext index(content);
+update messages 
+set sender = sender+1 where id >= 0;
 
-DESCRIBE messages;
+select * from messages;
 
 show indexes from messages;
 

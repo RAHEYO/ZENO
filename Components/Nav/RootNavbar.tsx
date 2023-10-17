@@ -1,20 +1,21 @@
 import { FC, useEffect, useState } from 'react';
 
-import dummySpaces, { dummyUserSpaceId } from '@/pages/api/Space';
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
+import { Space, dummyUserSpaceId } from '@/pages/api/Space';
+import { Channel } from '@/pages/api/Channel';
 
 // The key to get & set in the localStorage~
 export const NAV_SPACE_KEY = "NAV_SPACE_KEY";
 
-const RootNavbar: FC = (): JSX.Element => {
+type RootNavbarProps = {
+    spaces: Space[],
+    channels: Channel[]
+}
+
+const RootNavbar: FC<RootNavbarProps> = ({ spaces, channels }): JSX.Element => {
     // The Space we're currenlty on
     const [currentSpaceId, setCurrentSpaceId] = useState(dummyUserSpaceId);
-    
-    // TODO: Replace with actual data in the back-end
-    const fetchedSpaces = () => {
-        return dummySpaces;
-    }
 
     // Update the localStorage whenever user click on a new Space
     // We need localStorage bc we're rendering this layout across all Spaces
@@ -43,10 +44,10 @@ const RootNavbar: FC = (): JSX.Element => {
     return (
     <div key="ONlY" className="fixed top-0 start-0 h-full flex flex-row">
         {/* The Primary Nav Bar (left-most bar) */}
-        <NavPrimary spaces={fetchedSpaces()} currentSpaceId={currentSpaceId} onNavigate={updateSpaceId} />
+        <NavPrimary spaces={spaces} currentSpaceId={currentSpaceId} onNavigate={updateSpaceId} />
 
         {/* The secondary bar, space specific navigations between channels */}
-        <NavSecondary currentSpace={fetchedSpaces().find(space => space.id === currentSpaceId)!} />
+        <NavSecondary space={spaces.find(space => space.id == currentSpaceId)!} channels={channels} />
     </div>
     );
 };

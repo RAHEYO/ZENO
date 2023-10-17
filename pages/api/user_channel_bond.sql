@@ -1,4 +1,4 @@
-CREATE DATABASE user_channel_bonds;
+use zeno;
 
 CREATE TABLE user_channel_bonds (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,

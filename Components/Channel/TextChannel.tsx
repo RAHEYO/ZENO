@@ -1,17 +1,18 @@
 import { FC } from 'react';
 
 import { Channel } from '@/pages/api/Channel';
-import dummyMessages, { Message } from '@/pages/api/Message';
+import { Message } from '@/pages/api/Message';
 import ChannelLayout from './ChannelLayout';
 import MessageComponent from './Message';
 import Spacebar from '../General/Spacebar';
 
 type TextChannelProps = {
-    channel: Channel
+    channel: Channel,
+    messages: Message[]
 }
 
-const TextChannel: FC<TextChannelProps> = ({ channel }): JSX.Element => {
-    const messages = dummyMessages.filter(msg => msg.channel_id == channel.id).sort((a, b) => a.time.getTime() - b.time.getTime());
+const TextChannel: FC<TextChannelProps> = ({ channel, messages }): JSX.Element => {
+    // const messages = dummyMessages.filter(msg => msg.channel_id == channel.id).sort((a, b) => a.time.getTime() - b.time.getTime());
 
     return (
     <ChannelLayout channel={channel}>

@@ -10,7 +10,7 @@ export type Space = {
 };
 
 export const fetchUserSpaces = (userId: number): string => {
-    return `SELECT * FROM users WHERE id = ${userId}`;
+    return `SELECT * FROM spaces;`;
 }
 
 const dummySpaces: Space[] = [

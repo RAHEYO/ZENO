@@ -11,5 +11,6 @@ CREATE TABLE role_relations (
 );
 
 drop table role_relations;
+truncate table role_relations;
 
 select * from role_relations;

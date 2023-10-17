@@ -1,37 +1,23 @@
-import { FC, useState, useEffect, useCallback } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 
 import { Space, dummyUserSpaceId } from '@/pages/api/Space';
-import dummyChannels, { Channel } from '@/pages/api/Channel';
+import { Channel, fetchSpaceChannels } from '@/pages/api/Channel';
 import ChannelItem from './ChannelItem';
-import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute } from '@/Utils/space';
+import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute, getSpaceIdFromRoute } from '@/Utils/space';
 
 type NavSecondaryProps = {
-    currentSpace: Space
+    space: Space,
+    channels: Channel[]
 }
 
-const NavSecondary: FC<NavSecondaryProps> = ({ currentSpace }): JSX.Element => {
+const NavSecondary: FC<NavSecondaryProps> = ({ space, channels }): JSX.Element => {
     // The boolean determines if the user is on Me;
-    const isOnMeSpace = currentSpace.id == dummyUserSpaceId;
-
-    const [channels, setChannels] = useState<Channel[]>([]);
-
-    // Fetch channels
-    const fetchChannels = useCallback(() => {
-        const availableChannels = dummyChannels.filter(channel => channel.space_id === currentSpace.id);
-        
-        setChannels(availableChannels);
-    }, [currentSpace]);
-
-    
-    useEffect(() => {
-        fetchChannels();
-    }, [fetchChannels]);    
-        
+    const isOnMeSpace = space.id == dummyUserSpaceId;
     
     // Generates channel route for navigation on-pressed
     const generateChannelRoute = (channelId: number): string => {
-        return getChannelRoute(getSpaceRoute(currentSpace.id), channelId);
+        return getChannelRoute(getSpaceRoute(space.id), channelId);
     }
 
     // The default channel route of the current space
@@ -50,7 +36,7 @@ const NavSecondary: FC<NavSecondaryProps> = ({ currentSpace }): JSX.Element => {
         return (
         <div className="flex flex-col w-[150px] h-full">
             <div className='h-[100px] flex bg-bar items-center justify-around'>
-                { currentSpace.name }
+                { space.name }
             </div>
         </div>
         );
@@ -60,7 +46,7 @@ const NavSecondary: FC<NavSecondaryProps> = ({ currentSpace }): JSX.Element => {
     <div className="flex flex-col w-[150px] h-full">
         <Link href={getDefaultChannelRoute()}>
             <div className='h-[100px] flex bg-neutral items-center justify-around'>
-                { currentSpace.name }
+                { space.name }
             </div>
         </Link>
         

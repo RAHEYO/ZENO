@@ -9,6 +9,8 @@ CREATE TABLE channels (
 );
 
 
+update channels
+set space_id = 3 where id in (8, 9, 10);
 
 alter table channels ADD COLUMN description varchar(100) after name;
 
