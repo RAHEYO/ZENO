@@ -11,7 +11,7 @@ CREATE TABLE messages (
 );
 
 update messages 
-set sender = sender+1 where id >= 0;
+set sender = 5 where id = 5;
 
 select * from messages;
 

@@ -10,6 +10,12 @@ export type User = {
     settings: {}
 }
 
+
+export const fetchSendersInIds = (ids: number[]): string => {
+    return `SELECT id, username, pic FROM users WHERE id IN (${ids.join(", ")});`;
+}
+
+
 const dummyUsers: User[] = [
     {
         id: 1,

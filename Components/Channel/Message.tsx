@@ -2,15 +2,15 @@ import { FC } from 'react';
 import Image from 'next/image';
 
 import { Message } from '@/pages/api/Message'
-import dummyUsers from '@/pages/api/User';
+import { User } from '@/pages/api/User';
 import Spacebar from '../General/Spacebar';
 
 type MessageProps = {
-    message: Message
+    message: Message,
+    sender: User
 }
 
-const Message: FC<MessageProps> = ({ message }): JSX.Element => {
-    const sender = dummyUsers.find(user => user.id == message.sender)!;
+const Message: FC<MessageProps> = ({ message, sender }): JSX.Element => {
     // console.warn(sender);
 
     return (

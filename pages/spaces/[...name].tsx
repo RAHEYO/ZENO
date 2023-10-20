@@ -1,20 +1,21 @@
 import { myQuery } from '../../pages/api/mysql';
 import { NextPage, GetServerSideProps } from 'next';
-import { useRouter } from 'next/router'
 
-import { Channel, ChannelCategory, fetchChannelByIdGeneral, fetchSpaceChannels } from '../api/Channel';
+import { Channel, ChannelCategory, fetchSpaceChannels } from '../api/Channel';
 import RootLayout from '@/Components/Nav/RootLayout';
 import MeSpace from './@_@me';
 import TextChannel from '@/Components/Channel/TextChannel';
 import { Space, dummyUserSpaceId, fetchUserSpaces } from '../api/Space';
 import { Message, fetchChannelMessages } from '../api/Message';
 import { getChannelIdFromRoute, getSpaceIdFromRoute } from '@/Utils/space';
+import { User, fetchSendersInIds } from '../api/User';
 
 type SpacePageProps = {
     spaces: Space[],
     channel?: Channel | undefined,
     channels: Channel[],
-    messages?: Message[]
+    messages?: Message[],
+    senders?: User[]
 }
 
 export const getServerSideProps = (async (context) => {
@@ -52,17 +53,25 @@ export const getServerSideProps = (async (context) => {
 
     // Filter to find the current channel
     const currentChannel = channels.find(channel => channel.id === channelId)!;
+
+    // Fetch messages and their corresponding senders for the text channel
     if (currentChannel && currentChannel.category == ChannelCategory.Chat) {
         const fetchMsgs = await myQuery(fetchChannelMessages(channelId));
         const parsedMsgs = JSON.parse(JSON.stringify(fetchMsgs))[0];
-        const messages = parsedMsgs.map((msg: any) => { return { id: msg.id as number, sender: msg.sender as number, content: msg.content as string, sent_time: msg.sent_time as Date } as Message });
+        const messages = parsedMsgs.map((msg: any) => { return { id: msg.id as number, sender: msg.sender as number, content: msg.content as string, sent_time: msg.sent_time as Date } as Message }) as Message[];
+
+        const senderIds = messages.map(msg => msg.sender);
+        const fetchSenders = await myQuery(fetchSendersInIds(senderIds));
+        const parsedSenders = JSON.parse(JSON.stringify(fetchSenders))[0];
+        const senders = parsedSenders.map((sender: any) => { return { id: sender.id as number, username: sender.username as string, pic: sender.pic as string } }) as User[];
 
         return { 
             props: {
                 spaces: parsedSpaces,
                 channel: currentChannel,
                 channels: channels,
-                messages: messages
+                messages: messages,
+                senders: senders
             }
         }
     }
@@ -78,7 +87,7 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<SpacePageProps>;  
 
 
-const SpacePage: NextPage<SpacePageProps> = ({ spaces, channel, messages, channels }) => {
+const SpacePage: NextPage<SpacePageProps> = ({ spaces, channel, channels, messages, senders }) => {
     if (channels.length == 0 || channel == undefined) {
         return (
         <RootLayout spaces={spaces} channels={channels}>
@@ -90,7 +99,7 @@ const SpacePage: NextPage<SpacePageProps> = ({ spaces, channel, messages, channe
 
     return (
     <RootLayout spaces={spaces} channels={channels}>
-        { channel.category == ChannelCategory.Chat ? <TextChannel channel={channel} messages={messages!} /> : <MeSpace spaces={spaces} channels={channels} /> }
+        { channel.category == ChannelCategory.Chat ? <TextChannel channel={channel} messages={messages!} senders={senders!} /> : <MeSpace spaces={spaces} channels={channels} /> }
     </RootLayout>
     );
 }
