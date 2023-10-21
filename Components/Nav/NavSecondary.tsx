@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Space, dummyUserSpaceId } from '@/pages/api/Space';
 import { Channel, fetchSpaceChannels } from '@/pages/api/Channel';
 import ChannelItem from './ChannelItem';
-import { dummyDefaultChannelId, getChannelRoute, getSpaceRoute, getSpaceIdFromRoute } from '@/Utils/space';
+import { getChannelRoute, getSpaceRoute } from '@/Utils/space';
 
 type NavSecondaryProps = {
     space: Space,
@@ -28,7 +28,7 @@ const NavSecondary: FC<NavSecondaryProps> = ({ space, channels }): JSX.Element =
         }
 
         // Otherwise, default navigate to the first channel of the space
-        return generateChannelRoute(dummyDefaultChannelId);
+        return generateChannelRoute(space.default_channel);
     }
 
     // If no channels fetched yet, still return just an empty name for UI consistency

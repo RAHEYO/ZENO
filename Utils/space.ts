@@ -40,7 +40,3 @@ export const getChannelIdFromRoute = (context: GetServerSidePropsContext): numbe
 
 // Returns the default route of first-render => user's main personal board w/ no channel specified
 export const DEFAULT_ROUTE = getSpaceRoute(dummyUserSpaceId);
-
-// Dummy default channel id for all spaces => "0"
-// TODO: Use the actual user-specified default_channel_id instead~
-export const dummyDefaultChannelId = dummyUserSpaceId;
