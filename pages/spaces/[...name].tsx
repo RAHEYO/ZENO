@@ -60,10 +60,13 @@ export const getServerSideProps = (async (context) => {
         const parsedMsgs = JSON.parse(JSON.stringify(fetchMsgs))[0];
         const messages = parsedMsgs.map((msg: any) => { return { id: msg.id as number, sender: msg.sender as number, content: msg.content as string, sent_time: msg.sent_time as Date } as Message }) as Message[];
 
-        const senderIds = messages.map(msg => msg.sender);
-        const fetchSenders = await myQuery(fetchSendersInIds(senderIds));
-        const parsedSenders = JSON.parse(JSON.stringify(fetchSenders))[0];
-        const senders = parsedSenders.map((sender: any) => { return { id: sender.id as number, username: sender.username as string, pic: sender.pic as string } }) as User[];
+        let senders: User[] = []
+        if (messages.length != 0) {
+            const senderIds = messages.map(msg => msg.sender);
+            const fetchSenders = await myQuery(fetchSendersInIds(senderIds));
+            const parsedSenders = JSON.parse(JSON.stringify(fetchSenders))[0];
+            senders = parsedSenders.map((sender: any) => { return { id: sender.id as number, username: sender.username as string, pic: sender.pic as string } }) as User[];
+        }
 
         return { 
             props: {
