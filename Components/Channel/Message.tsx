@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 
-import { Message } from '@/pages/api/Message'
+import { Message } from '@/pages/api/messages/[channel_id]'
 import { User } from '@/pages/api/User';
 import Spacebar from '../General/Spacebar';
 

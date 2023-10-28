@@ -40,9 +40,11 @@ const connectionOptions: ConnectionOptions = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const dbConnection = await mysql.createConnection(connectionOptions);
 
+    const channel_id = Number(req.query['channel_id']);
+    console.warn(channel_id);
+
     try {
         if (req.method === 'GET') {
-            var { channel_id } = req.body;
             const query = fetchChannelMessages(Number(channel_id));
             const [rows] = await dbConnection.execute(query);
             const parsedMessages = JSON.parse(JSON.stringify(rows));

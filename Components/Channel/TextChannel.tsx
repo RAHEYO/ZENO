@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
 import { BsSendFill } from 'react-icons/bs';
 
-import { myQuery } from '@/pages/api/mysql';
 import { Channel } from '@/pages/api/Channel';
-import { Message, sendMessage } from '@/pages/api/Message';
+import { Message, sendMessage } from '@/pages/api/messages/[channel_id]';
 import { User } from '@/pages/api/User';
 import ChannelLayout from './ChannelLayout';
 import MessageComponent from './Message';
@@ -26,7 +25,7 @@ const TextChannel: FC<TextChannelProps> = ({ channel, messages, senders }): JSX.
             sent_time: new Date(Date.now()).toISOString().slice(0, 19).replace('T', ' ')
         };
 
-        await fetch('/api/Message', { 
+        await fetch(`/api/messages/${channel.id}`, { 
             method: 'POST', 
             body: JSON.stringify(fullMessage)
         });

@@ -6,7 +6,7 @@ import RootLayout from '@/Components/Nav/RootLayout';
 import MeSpace from './@_@me';
 import TextChannel from '@/Components/Channel/TextChannel';
 import { Space, dummyUserSpaceId, fetchUserSpaces } from '../api/Space';
-import { Message, fetchChannelMessages } from '../api/Message';
+import { Message, fetchChannelMessages } from '../api/messages/[channel_id]';
 import { getChannelIdFromRoute, getSpaceIdFromRoute } from '@/Utils/space';
 import { User, fetchSendersInIds } from '../api/User';
 
