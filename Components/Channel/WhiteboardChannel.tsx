@@ -124,17 +124,6 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		}
 
 
-		// if(whiteboardRef.current && canvasRef.current){
-
-
-		// 	const ctx = canvasRef.current.getContext('2d');
-		// 	if (ctx != null){
-		// 		ctx.beginPath();
-		// 		ctx.rect( currentMouseDownPos.x, currentMouseDownPos.y, xOffset, yOffset);
-		// 		ctx.stroke();
-		// 	}
-		// }
-
 		if(items && xOffset != 0 && yOffset !=0){
 			setItems([...items, {
 				xPosition: currentMouseDownPos.x - boardXOffset,
@@ -224,37 +213,9 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 				
 				
 				<Toolbar selectedTool = {selectedTool} setSelectedTool={setSelectedTool}/>
-
-
-				{/* <Draggable bounds = "parent">
-					<svg>
-						<circle cx={50} cy={50} r={10} fill="red" />
-					</svg>
-				</Draggable> */}
-				
-
-
 				
 				{renderItems()}
-				<Draggable bounds = "parent">		
-					<h1 className = "w-[500px] h-[50px] bg-black">HIII</h1>	
-				</Draggable>
-
 				
-			
-				{/* <canvas 
-					width = {`${whiteboardRef.current?.offsetWidth}`} 
-					height = {`${whiteboardRef.current?.offsetHeight}`} 
-					ref = {canvasRef} 
-					onMouseDown = {event => handleMouseDown(event)} 
-					onMouseUp = {event => handleMouseUp(event) }
-				>
-
-		
-				
-
-				</canvas>
-	 */}
 			</div>
 		</ChannelLayout>
 		);
