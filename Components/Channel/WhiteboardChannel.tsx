@@ -107,12 +107,12 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		console.log("currentMouseDownPos.y: " + currentMouseDownPos.y)
 
 
-		const xOffset = currentMouseUpPos.x - currentMouseDownPos.x
-		const yOffset = currentMouseUpPos.y - currentMouseDownPos.y
+		const width = currentMouseUpPos.x - currentMouseDownPos.x
+		const height = currentMouseUpPos.y - currentMouseDownPos.y
 		
 
-		console.log("xoffset: " + xOffset)
-		console.log("yoffset.y: " + yOffset)
+		console.log("width: " + width)
+		console.log("height: " + height)
 
 
 		let boardXOffset = 0;
@@ -123,13 +123,34 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 			boardYOffset = boundingBox.top;
 		}
 
+		let topLeftX = currentMouseDownPos.x - boardXOffset;
+		let topLeftY = currentMouseDownPos.y - boardYOffset; 
 
-		if(items && xOffset != 0 && yOffset !=0){
+		// If the width is x units, and is less than zero, then the left most corner 
+		// of the bounding box will be x units to the left
+		if(width < 0){
+			topLeftX += width;
+			console.log("Setting top left x: " + topLeftX)
+		}
+
+		
+		// If the height is y units, and is less than zero, then the top most corner
+		// of the bounding box will be be y units UP, because y grows as you go down the page
+		// Thus, we should add the negative height in order to go up
+		if(height < 0){
+			topLeftY += height;
+			console.log("Setting top left y: " + topLeftY)
+		}
+
+		if(items && width != 0 && height !=0){
+
+			console.log("topleftX" + topLeftX + " vs calc: " + (currentMouseDownPos.x - boardXOffset))
+			console.log("topleftY" + topLeftY + " vs calc: " + (currentMouseDownPos.y - boardYOffset))
 			setItems([...items, {
-				xPosition: currentMouseDownPos.x - boardXOffset,
-				yPosition: currentMouseDownPos.y - boardYOffset, 
-				width: Math.abs(xOffset),
-				height: Math.abs(yOffset),
+				xPosition: topLeftX,
+				yPosition: topLeftY, 
+				width: Math.abs(width),
+				height: Math.abs(height),
 				type: "rect",
 			}])
 		}
@@ -220,14 +241,6 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		</ChannelLayout>
 		);
 	
-		// <div className = "wrapper max-w-[7.5vh] max-h[7.5vh]">
-			// <Image
-			// 	className = "bg-[white] object-scale-down h-[7.5vh] w-[7.5vh]"
-			// 	src={Icon}
-			// 	alt="whiteboard"
-			// />
-		// </div>
-
 };
 
 export default WhiteboardChannel;
