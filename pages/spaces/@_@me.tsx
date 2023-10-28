@@ -1,10 +1,9 @@
 import { NextPage, GetServerSideProps } from 'next';
 
-import { Space, dummyUserSpaceId, fetchUserSpaces } from '@/pages/api/Space';
-import { Channel, fetchSpaceChannels } from '@/pages/api/Channel';
+import { Space, dummyUserSpaceId } from '@/pages/api/Space';
+import { Channel } from '@/pages/api/Channel';
 import RootLayout from '@/Components/Nav/RootLayout';
-import { myQuery } from '@/pages/api/mysql';
-import { getSpaceIdFromRoute, getChannelIdFromRoute } from '@/Utils/space';
+
 
 type MePageProps = {
     spaces: Space[],
@@ -14,20 +13,25 @@ type MePageProps = {
 export const getServerSideProps = (async (context) => {
     // Fetch all spaces of the user
     // TODO: TB CHANGED LATER, MAKE IT USER-SPECIFIC
-    const resSpaces = await myQuery(fetchUserSpaces(dummyUserSpaceId));
-    const parsedSpaces = JSON.parse(JSON.stringify(resSpaces))[0] as Space[];
+    const fetchedSpaces = await fetch(`http://localhost:3000/api/spaces/8`, { method: 'GET' });
+    const { spaces }: { spaces: Space[] } = await fetchedSpaces.json();
 
-
-    // Fetch all channels of the current space
-    const spaceId = getSpaceIdFromRoute(context);
-
-    const res = await myQuery(fetchSpaceChannels(spaceId));
-    const parsed = JSON.parse(JSON.stringify(res))[0] as { id: number, space_id: number, name: string, 'category+0': number }[];
-    const channels = parsed.map(channel => { return { ...channel, category: channel['category+0'], description: "" } as Channel; });
+    // Use the current space to fetch for the belonging channels~
+    const fetchedChannels = await fetch(`http://localhost:3000/api/channels/by_space/${dummyUserSpaceId}`, { method: 'GET' });
+    const { channels }: { channels: Channel[] } = await fetchedChannels.json();
+    
+    if (channels.length == 0) {
+        return {
+            props: {
+                spaces: spaces,
+                channels: []
+            }
+        };
+    }
 
     return { 
         props: {
-            spaces: parsedSpaces,
+            spaces: spaces,
             channels: channels
         }
     }

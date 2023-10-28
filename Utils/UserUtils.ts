@@ -1,20 +1,13 @@
-// import { query } from "../pages/api/mysql";
 
 export type User = {
     id: number,
     space: number,
+    username: string,
     email: string,
     pass: string
-    username: string,
     pic: string,
     settings: {}
 }
-
-
-export const fetchSendersInIds = (ids: number[]): string => {
-    return `SELECT id, username, pic FROM users WHERE id IN (${ids.join(", ")});`;
-}
-
 
 const dummyUsers: User[] = [
     {
@@ -63,6 +56,7 @@ const dummyUsers: User[] = [
         settings: {}
     },
 ];
+
 
 // dummyUsers.forEach((user, index) => {
 //     const queryString = `INSERT INTO users (id, space, username, email, pass, pic) VALUES (${user.id}, ${user.space}, "${user.username}", "${user.email}", "${user.pass}", "${user.pic}");`;

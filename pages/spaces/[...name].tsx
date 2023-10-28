@@ -1,14 +1,14 @@
-import { myQuery } from '../../pages/api/mysql';
 import { NextPage, GetServerSideProps } from 'next';
 
-import { Channel, ChannelCategory, fetchSpaceChannels } from '../api/Channel';
+import { Channel, ChannelCategory } from '../api/Channel';
 import RootLayout from '@/Components/Nav/RootLayout';
 import MeSpace from './@_@me';
 import TextChannel from '@/Components/Channel/TextChannel';
-import { Space, dummyUserSpaceId, fetchUserSpaces } from '../api/Space';
-import { Message, fetchChannelMessages } from '../api/messages/[channel_id]';
+import { Space } from '../api/spaces/[user_id]';
+import { Message } from '../api/messages/[channel_id]';
 import { getChannelIdFromRoute, getSpaceIdFromRoute } from '@/Utils/space';
-import { User, fetchSendersInIds } from '../api/User';
+import { User } from '@/Utils/UserUtils';
+import { dummyUserSpaceId } from '../api/Space';
 
 type SpacePageProps = {
     spaces: Space[],
@@ -21,9 +21,9 @@ type SpacePageProps = {
 export const getServerSideProps = (async (context) => {
     // Fetch all spaces of the user
     // TODO: TB CHANGED LATER, MAKE IT USER-SPECIFIC
-    const resSpaces = await myQuery(fetchUserSpaces(dummyUserSpaceId));
-    const parsedSpaces = JSON.parse(JSON.stringify(resSpaces))[0] as Space[];
-
+    
+    const fetchedSpaces = await fetch(`http://localhost:3000/api/spaces/${dummyUserSpaceId}`, { method: 'GET' });
+    const { spaces }: { spaces: Space[] } = await fetchedSpaces.json();
 
     // Fetch all channels of the current space
     const spaceId = getSpaceIdFromRoute(context);
@@ -35,42 +35,37 @@ export const getServerSideProps = (async (context) => {
         };
     }
 
-    const res = await myQuery(fetchSpaceChannels(spaceId));
-    const parsed = JSON.parse(JSON.stringify(res))[0];
-
-    // In case there are no channels in the space
-    if (parsed.length == 0) {
+    // Use the current space to fetch for the belonging channels~
+    const fetchedChannels = await fetch(`http://localhost:3000/api/channels/by_space/${spaceId}`, { method: 'GET' });
+    const { channels }: { channels: Channel[] } = await fetchedChannels.json();
+    
+    if (channels.length == 0) {
         return {
             props: {
-                spaces: parsedSpaces,
+                spaces: spaces,
                 channels: []
             }
-        }
+        };
     }
-
-    // Otherwise channels do exist
-    const channels = (parsed as { id: number, space_id: number, name: string, "category+0": number }[]).map(channel => { return { id: channel.id, space_id: channel.space_id, name: channel.name, category: channel['category+0'], description: "" } as Channel; });
 
     // Filter to find the current channel
     const currentChannel = channels.find(channel => channel.id === channelId)!;
 
     // Fetch messages and their corresponding senders for the text channel
     if (currentChannel && currentChannel.category == ChannelCategory.Chat) {
-        const fetchMsgs = await myQuery(fetchChannelMessages(channelId));
-        const parsedMsgs = JSON.parse(JSON.stringify(fetchMsgs))[0];
-        const messages = parsedMsgs.map((msg: any) => { return { id: msg.id as number, sender: msg.sender as number, content: msg.content as string, sent_time: msg.sent_time as Date } as Message }) as Message[];
+        const fetchMsgs = await fetch(`http://localhost:3000/api/messages/${currentChannel.id}`, { method: 'GET' });
+        const { messages }: { messages: Message[] } = await fetchMsgs.json();
 
-        let senders: User[] = []
+        var senders: User[] = []
         if (messages.length != 0) {
-            const senderIds = messages.map(msg => msg.sender);
-            const fetchSenders = await myQuery(fetchSendersInIds(senderIds));
-            const parsedSenders = JSON.parse(JSON.stringify(fetchSenders))[0];
-            senders = parsedSenders.map((sender: any) => { return { id: sender.id as number, username: sender.username as string, pic: sender.pic as string } }) as User[];
+            const senderIds = [... new Set(messages.map(msg => msg.sender))];
+            const sendySenders = await fetch(`http://localhost:3000/api/users/User?ids=${senderIds}`, { method: 'GET' });
+            senders = (await sendySenders.json()).users as User[];
         }
 
         return { 
             props: {
-                spaces: parsedSpaces,
+                spaces: spaces,
                 channel: currentChannel,
                 channels: channels,
                 messages: messages,
@@ -81,7 +76,7 @@ export const getServerSideProps = (async (context) => {
 
     return { 
         props: {
-            spaces: parsedSpaces,
+            spaces: spaces,
             channel: currentChannel,
             channels: channels
         }

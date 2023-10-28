@@ -1,8 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 
-import Spacebar from '../General/Spacebar';
 import { ChannelConfigsType } from '@/pages/api/ChannelConfig';
-import dummyUsers, { User } from '@/pages/api/User';
+import dummyUsers, { User } from '@/Utils/UserUtils';
 
 type ChannelMembersConfigsProps = {
     channelSettings: ChannelConfigsType

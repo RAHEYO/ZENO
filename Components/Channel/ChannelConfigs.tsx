@@ -9,7 +9,7 @@ import Spacebar from '../General/Spacebar';
 import SettingCategory from '../General/SettingCategory';
 import ChannelGeneralConfigs from './ChannelGeneralConfigs';
 import ChannelPermissionConfigs from './ChannelPermissionConfigs';
-import ChannelMembersConfigs from './ChannelMembersConfigss';
+import ChannelMembersConfigs from './ChannelMembersConfigs';
 
 type ChannelConfigProps = {
     channel: Channel,

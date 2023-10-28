@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 
 import { Message } from '@/pages/api/messages/[channel_id]'
-import { User } from '@/pages/api/User';
+import { User } from '@/pages/api/users/User';
 import Spacebar from '../General/Spacebar';
 
 type MessageProps = {

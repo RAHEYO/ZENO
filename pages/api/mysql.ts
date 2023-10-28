@@ -20,5 +20,3 @@ export const myQuery = async (query='SELECT * FROM users') => {
   
   return res;
 }
-
-// myQuery(`SELECT id, space_id, name, category+0 FROM channels WHERE space_id = 3;`);
