@@ -1,3 +1,7 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import mysql, { ConnectionOptions }  from 'mysql2/promise';
+require('dotenv').config() // Allows us to use .env files without running the entire application!
+
 /*
     Typescript Date Type Initialization:
     * Specifying the date-time
@@ -22,7 +26,55 @@ export const fetchChannelMessages = (channelId: number): string => {
     return `SELECT * FROM messages WHERE channel_id = ${channelId} ORDER BY sent_time ASC`;
 }
 
-const dummyMessages: Message[] = [
+export const sendMessage = (channel_id: number, sender: number, content: string, sent_time: Date): string => {
+    return `INSERT INTO messages (content, sender, channel_id, sent_time) VALUES ('${content}', ${sender}, ${channel_id}, '${sent_time}');`;
+}
+
+const connectionOptions: ConnectionOptions = {
+    host: "localhost",
+    user: "root",
+    database: "zeno",
+    password: process.env['NEXT_PUBLIC_LOCAL_SERVER_PASS'],
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const dbConnection = await mysql.createConnection(connectionOptions);
+
+    try {
+        if (req.method === 'GET') {
+            var { channel_id } = req.body;
+            const query = fetchChannelMessages(Number(channel_id));
+            const [rows] = await dbConnection.execute(query);
+            const parsedMessages = JSON.parse(JSON.stringify(rows));
+            const messages: Message[] = parsedMessages.map((row: any) => {
+                return {
+                    id: row.id,
+                    content: row.content,
+                    sender: row.sender,
+                    channel_id: row.channel_id,
+                    sent_time: row.sent_time
+                }
+            });
+            res.status(200).json({ messages });
+        } else if (req.method === 'POST') {
+            const { channel_id, sender, content, sent_time } = JSON.parse(req.body);
+            const query = sendMessage(channel_id, sender, content, sent_time);
+
+            await dbConnection.execute(query);
+
+            res.status(200).json({ message: `Message sent successfully! ${req.body}` });
+        } else if (req.method === 'DELETE') {
+
+
+        }
+        
+    } catch(e) {
+        console.warn(e as Error);
+        res.status(500).json({ error: e });
+    }
+}
+
+export const dummyMessages: Message[] = [
     {
         id: 0,
         content: "Quantum Computing is kinda cracked, my head's exploding~",
@@ -150,5 +202,3 @@ const dummyMessages: Message[] = [
         sent_time: new Date(2023, 7, 21, 13, 11, 13, 983)
     },
 ];
-
-export default dummyMessages;

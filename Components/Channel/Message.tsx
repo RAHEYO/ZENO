@@ -11,8 +11,6 @@ type MessageProps = {
 }
 
 const Message: FC<MessageProps> = ({ message, sender }): JSX.Element => {
-    // console.warn(sender);
-
     return (
     <div className="py-3 flex flex-row">
         <Image className="rounded-full" src={sender.pic} objectFit='cover' width={50} height={50} alt={`SenderID: ${sender.id}`} />

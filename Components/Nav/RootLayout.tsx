@@ -14,10 +14,10 @@ type RootLayoutProps = {
 // Basically a layout that wraps around the children and adds a navbar on the left side for navigation
 const RootLayout: NextPage<RootLayoutProps> = ({ children, spaces, channels }) => {
     return (
-    <div className='w-screen h-screen flex-row bg-background text-foreground'>
+    <div className='w-screen h-screen flex flex-row bg-background text-foreground'>
         <RootNavbar spaces={spaces} channels={channels}/>
         
-        <div className="ml-[220px] bg-background">
+        <div className="w-full h-full ml-[220px] bg-background">
             {children}
         </div>
     </div>

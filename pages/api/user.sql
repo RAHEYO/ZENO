@@ -22,6 +22,8 @@ order by id asc limit 10;
 
 select * from users;
 
+SELECT id, username, pic FROM users WHERE id IN ();
+
 show indexes from users;
 
 alter table users add column pic VARCHAR(2083);

@@ -18,7 +18,7 @@ const ChannelLayout: NextPage<ChannelLayoutProps> = ({ channel, children }) => {
     return (
     <>
         <div className={isSettingVisible ? `hidden` : undefined}>
-            <div className="fixed top-0 z-10 p-5 h-[70px] w-full bg-gradient-to-br from-bar to-neutral border-b">
+            <div className="fixed w-full top-0 z-10 p-5 h-[70px] bg-gradient-to-br from-bar to-neutral border-b">
                 <button onClick={() => toggleSettingsModal(true)}>
                 / { channel.name } (id: {channel.id})
                 </button>

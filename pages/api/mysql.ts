@@ -1,7 +1,7 @@
 //Note: run "npx ts-node pages/api/mysql.ts" to run a sql command
 
 // Get the client
-import mysql, { ConnectionOptions, FieldPacket }  from 'mysql2/promise';
+import mysql, { ConnectionOptions }  from 'mysql2/promise';
 require('dotenv').config() // Allows us to use .env files without running the entire application!
 
 export type mysqlResponseType = mysql.RowDataPacket[] | mysql.RowDataPacket[][] | mysql.ProcedureCallPacket;

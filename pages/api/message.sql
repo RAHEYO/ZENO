@@ -13,7 +13,11 @@ CREATE TABLE messages (
 update messages 
 set sender = 5 where id = 5;
 
-select * from messages;
+select * from messages order by sent_time desc;
+
+INSERT INTO messages (content, sender, channel_id, sent_time) VALUES ('faf', 1, 4, '2023-09-29 13:50:03');
+
+delete from messages where id = 19;
 
 show indexes from messages;
 
