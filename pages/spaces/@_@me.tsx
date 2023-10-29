@@ -1,7 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next';
 
-import { Space, dummyUserSpaceId } from '@/pages/api/Space';
-import { Channel } from '@/pages/api/Channel';
+import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { Channel } from '@/Utils/ChannelUtils';
 import RootLayout from '@/Components/Nav/RootLayout';
 
 

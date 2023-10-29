@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-import { Channel } from '@/pages/api/Channel';
+import { Channel } from '@/Utils/ChannelUtils';
 
 type ChannelItemProps = {
     channel: Channel,

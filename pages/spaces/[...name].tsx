@@ -1,14 +1,14 @@
 import { NextPage, GetServerSideProps } from 'next';
 
-import { Channel, ChannelCategory } from '../api/Channel';
+import { Channel, ChannelCategory } from '@/Utils/ChannelUtils';
 import RootLayout from '@/Components/Nav/RootLayout';
 import MeSpace from './@_@me';
 import TextChannel from '@/Components/Channel/TextChannel';
-import { Space } from '../api/spaces/[user_id]';
-import { Message } from '../api/messages/[channel_id]';
-import { getChannelIdFromRoute, getSpaceIdFromRoute } from '@/Utils/space';
+import { Space } from '@/Utils/SpaceUtils';
+import { Message } from '@/Utils/MessageUtils';
+import { getChannelIdFromRoute, getSpaceIdFromRoute } from '@/Utils/SpaceUtils';
 import { User } from '@/Utils/UserUtils';
-import { dummyUserSpaceId } from '../api/Space';
+import { dummyUserSpaceId } from '@/Utils/SpaceUtils';
 
 type SpacePageProps = {
     spaces: Space[],

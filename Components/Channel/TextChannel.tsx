@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import { BsSendFill } from 'react-icons/bs';
 
-import { Channel } from '@/pages/api/Channel';
-import { Message } from '@/pages/api/messages/[channel_id]';
-import { User } from '@/pages/api/users/User';
+import { Channel } from '@/Utils/ChannelUtils';
+import { Message } from '@/Utils/MessageUtils';
+import { User } from '@/Utils/UserUtils';
 import ChannelLayout from './ChannelLayout';
 import MessageComponent from './Message';
 import Spacebar from '../General/Spacebar';

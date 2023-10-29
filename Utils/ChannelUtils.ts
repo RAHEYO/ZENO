@@ -1,4 +1,4 @@
-import { dummyUserSpaceId } from "./Space";
+import { dummyUserSpaceId } from "./SpaceUtils";
 
 export const enum ChannelCategory {
     Chat=1,
@@ -13,13 +13,6 @@ export type Channel = {
     category: ChannelCategory, // Which category (type of channel) that it belongs to
 }
 
-export const fetchSpaceChannels = (space_id: number): string => {
-    return `SELECT id, space_id, name, category+0 FROM channels WHERE space_id = ${space_id};`;
-}
-
-export const fetchChannelByIdGeneral = (channel_id: number): string => {
-    return `SELECT id, space_id, name, category+0 FROM channels WHERE id = ${channel_id}`;
-}
 
 const dummyChannels: Channel[] = [
     {
@@ -121,11 +114,5 @@ const dummyChannels: Channel[] = [
         category: ChannelCategory.Chat
     },
 ];
-
-// dummyChannels.forEach((channel, _) => {
-//     const queryString = `INSERT INTO channels (id, space_id, name, description, category) VALUES (${channel.id}, ${channel.space_id}, '${channel.name}', '${channel.description}', ${channel.category});`;
-//     console.log(queryString);
-//     query(queryString);
-// });
 
 export default dummyChannels;

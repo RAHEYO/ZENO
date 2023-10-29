@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Divider from '../General/Divider';
-import { Space, dummyUserSpaceId } from '@/pages/api/Space';
-import { getChannelRoute, getSpaceRoute } from '@/Utils/space';
+import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { getChannelRoute, getSpaceRoute } from '@/Utils/SpaceUtils';
 
 type NavPrimaryProps = {
     currentSpaceId: number,

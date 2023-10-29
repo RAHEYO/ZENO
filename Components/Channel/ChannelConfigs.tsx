@@ -4,7 +4,7 @@ import { CgClose } from 'react-icons/cg';
 import  { ChannelConfigsType, channelConfigCategories } from '@/pages/api/ChannelConfig';
 import dummyUserChannelBonds from '@/pages/api/UserChannelBond';
 import dummyRoleRelations from '@/pages/api/RoleRelation';
-import { Channel } from '@/pages/api/Channel';
+import { Channel } from '@/Utils/ChannelUtils';
 import Spacebar from '../General/Spacebar';
 import SettingCategory from '../General/SettingCategory';
 import ChannelGeneralConfigs from './ChannelGeneralConfigs';

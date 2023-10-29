@@ -1,5 +1,8 @@
-// By default we assume the current user has the id of 0, which infers that the personal space matches the user's id as well
-export const dummyUserSpaceId = 1;
+// A utils file that basically contains a bunch of functions shared in multiple places,
+// it is better to define them in a singular file so we only need to change 1 place whenever there is a need for a fix
+import { GetServerSidePropsContext } from "next";
+import path from "path";
+
 
 export type Space = {
     id: number, // The unique id of the space, the User's personal space has a unique id same as its own user.id
@@ -9,9 +12,44 @@ export type Space = {
     roles: string[] // The roles of the space
 };
 
-export const fetchUserSpaces = (userId: number): string => {
-    return `SELECT * FROM spaces;`;
+// By default we assume the current user has the id of 0, which infers that the personal space matches the user's id as well
+export const dummyUserSpaceId = 1;
+
+// Returns the route of current space
+export const getSpaceRoute = (spaceId: number): string => {
+    return path.join('/spaces', spaceId.toString());
 }
+
+// Returns the route of the current channel inside the space
+export const getChannelRoute = (spaceRoute: string, channelId: number): string => {
+    return path.join(spaceRoute, channelId.toString());
+}
+
+// Returns the current space id from the route
+export const getSpaceIdFromRoute = (context: GetServerSidePropsContext): number => {
+    const { resolvedUrl } = context;
+    const props = resolvedUrl.split('spaces/')[resolvedUrl.split('spaces/').length - 1];
+    const spaceId = props.split('/')[0];
+    
+    if (spaceId === "@_@me") {
+        return dummyUserSpaceId;
+    }
+
+    return parseInt(spaceId);
+}
+
+export const getChannelIdFromRoute = (context: GetServerSidePropsContext): number => {
+    const { resolvedUrl } = context;
+    const props = resolvedUrl.split('spaces/')[resolvedUrl.split('spaces/').length - 1];
+    const channelId = parseInt(props.split('/')[1]);
+
+    return channelId;
+}
+
+
+// Returns the default route of first-render => user's main personal board w/ no channel specified
+export const DEFAULT_ROUTE = getSpaceRoute(dummyUserSpaceId);
+
 
 const dummySpaces: Space[] = [
     { // This one is particularly the user's personal space, a dummy user space
@@ -93,5 +131,6 @@ const dummySpaces: Space[] = [
 //     console.log(queryString);
 //     query(queryString);
 // });
+
 
 export default dummySpaces;

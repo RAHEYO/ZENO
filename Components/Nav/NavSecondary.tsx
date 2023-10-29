@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-import { Space, dummyUserSpaceId } from '@/pages/api/Space';
-import { Channel, fetchSpaceChannels } from '@/pages/api/Channel';
+import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { Channel } from '@/Utils/ChannelUtils';
 import ChannelItem from './ChannelItem';
-import { getChannelRoute, getSpaceRoute } from '@/Utils/space';
+import { getChannelRoute, getSpaceRoute } from '@/Utils/SpaceUtils';
 
 type NavSecondaryProps = {
     space: Space,

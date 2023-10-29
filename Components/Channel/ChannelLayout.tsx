@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { ReactNode, useState } from 'react';
 
-import { Channel } from '@/pages/api/Channel';
+import { Channel } from '@/Utils/ChannelUtils';
 import ChannelSettings from './ChannelConfigs';
 
 type ChannelLayoutProps = {

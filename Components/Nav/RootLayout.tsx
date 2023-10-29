@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { ReactNode } from 'react';
 
-import { Space } from '@/pages/api/Space';
-import { Channel } from '@/pages/api/Channel';
+import { Space } from '@/Utils/SpaceUtils';
+import { Channel } from '@/Utils/ChannelUtils';
 import RootNavbar from './RootNavbar';
 
 type RootLayoutProps = {
