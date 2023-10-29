@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { dummyUserSpaceId } from '@/Utils/General';
+import { Space } from '@/Utils/SpaceUtils';
 import { Channel } from '@/Utils/ChannelUtils';
 import ChannelItem from './ChannelItem';
 import { getChannelRoute, getSpaceRoute } from '@/Utils/SpaceUtils';

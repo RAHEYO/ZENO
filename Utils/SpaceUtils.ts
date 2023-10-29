@@ -3,6 +3,7 @@
 import { GetServerSidePropsContext } from "next";
 import path from "path";
 
+import { dummyUserSpaceId } from "./General";
 
 export type Space = {
     id: number, // The unique id of the space, the User's personal space has a unique id same as its own user.id
@@ -11,9 +12,6 @@ export type Space = {
     default_channel: number, // The default channel id of the space
     roles: string[] // The roles of the space
 };
-
-// By default we assume the current user has the id of 0, which infers that the personal space matches the user's id as well
-export const dummyUserSpaceId = 1;
 
 // Returns the route of current space
 export const getSpaceRoute = (spaceId: number): string => {

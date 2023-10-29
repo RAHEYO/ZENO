@@ -2,9 +2,10 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Divider from '../General/Divider';
-import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { dummyUserSpaceId } from '@/Utils/General';
+import { Space } from '@/Utils/SpaceUtils';
 import { getChannelRoute, getSpaceRoute } from '@/Utils/SpaceUtils';
+import Divider from '../General/Divider';
 
 type NavPrimaryProps = {
     currentSpaceId: number,

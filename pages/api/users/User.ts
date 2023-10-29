@@ -4,7 +4,7 @@ import { User } from '@/Utils/UserUtils';
 import { establishConnection } from "@/Config"
 
 
-export const fetchSendersInIds = (ids: number[]): string => {
+export const fetchUsersInIds = (ids: number[]): string => {
     return `SELECT id, username, pic FROM users WHERE id IN (${ids.join(", ")});`;
 }
 
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { ids } = req.query;
             const parsedIds = JSON.parse(`[${ids as string}]`) as number[];
 
-            const query = fetchSendersInIds(parsedIds);
+            const query = fetchUsersInIds(parsedIds);
             const [rows] = await dbConnection.execute(query);
             const parsedSenders = JSON.parse(JSON.stringify(rows));
             const users: User[] = parsedSenders.map((row: any) => {

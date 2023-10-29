@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 
 import NavPrimary from './NavPrimary';
 import NavSecondary from './NavSecondary';
-import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { dummyUserSpaceId } from '@/Utils/General';
+import { Space } from '@/Utils/SpaceUtils';
 import { Channel } from '@/Utils/ChannelUtils';
 
 // The key to get & set in the localStorage~

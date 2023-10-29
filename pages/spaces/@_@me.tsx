@@ -1,6 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next';
 
-import { Space, dummyUserSpaceId } from '@/Utils/SpaceUtils';
+import { dummyUserSpaceId, fetcher } from '@/Utils/General';
+import { Space } from '@/Utils/SpaceUtils';
 import { Channel } from '@/Utils/ChannelUtils';
 import RootLayout from '@/Components/Nav/RootLayout';
 
@@ -13,13 +14,11 @@ type MePageProps = {
 export const getServerSideProps = (async (context) => {
     // Fetch all spaces of the user
     // TODO: TB CHANGED LATER, MAKE IT USER-SPECIFIC
-    const fetchedSpaces = await fetch(`http://localhost:3000/api/spaces/8`, { method: 'GET' });
-    const { spaces }: { spaces: Space[] } = await fetchedSpaces.json();
+    const spaces = (await fetcher(`http://localhost:3000/api/spaces/${dummyUserSpaceId}`)).spaces as Space[];
 
     // Use the current space to fetch for the belonging channels~
-    const fetchedChannels = await fetch(`http://localhost:3000/api/channels/by_space/${dummyUserSpaceId}`, { method: 'GET' });
-    const { channels }: { channels: Channel[] } = await fetchedChannels.json();
-    
+    const channels = (await fetcher(`http://localhost:3000/api/channels/by_space/${dummyUserSpaceId}`)).channels as Channel[];
+
     if (channels.length == 0) {
         return {
             props: {

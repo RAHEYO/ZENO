@@ -1,4 +1,5 @@
-import { dummyUserSpaceId } from "./SpaceUtils";
+import { dummyUserSpaceId } from "./General";
+
 
 export const enum ChannelCategory {
     Chat=1,
@@ -12,7 +13,6 @@ export type Channel = {
     description: string,
     category: ChannelCategory, // Which category (type of channel) that it belongs to
 }
-
 
 const dummyChannels: Channel[] = [
     {

@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { establishConnection } from "@/Config";
 import { Message } from "@/Utils/MessageUtils";
+import { fetchUsersInIds } from "../users/User";
+import { User } from "@/Utils/UserUtils";
 /*
     Typescript Date Type Initialization:
     * Specifying the date-time
@@ -29,9 +31,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const dbConnection = await establishConnection();
 
         if (req.method === 'GET') {
-            const query = fetchChannelMessages(Number(channel_id));
-            const [rows] = await dbConnection.execute(query);
-            const parsedMessages = JSON.parse(JSON.stringify(rows));
+            const messagesQuery = fetchChannelMessages(Number(channel_id));
+            const [msgsRows] = await dbConnection.execute(messagesQuery);
+            const parsedMessages = JSON.parse(JSON.stringify(msgsRows));
             const messages: Message[] = parsedMessages.map((row: any) => {
                 return {
                     id: row.id,
@@ -41,7 +43,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     sent_time: row.sent_time
                 }
             });
-            res.status(200).json({ messages });
+
+            if (messages.length != 0) {
+                const senderIds = [... new Set(messages.map(msg => msg.sender))];
+                const senderQuery = fetchUsersInIds(senderIds);
+                const [sendersRows] = await dbConnection.execute(senderQuery);
+                const parsedSenders = JSON.parse(JSON.stringify(sendersRows));
+                const users: User[] = parsedSenders.map((row: any) => {
+                    return {
+                        id: row.id,
+                        username: row.username,
+                        pic: row.pic,
+                        email: "",
+                        pass: "",
+                        space: NaN,
+                        settings: {}
+                    } as User;
+                });
+
+                res.status(200).json({ messages, users });
+            }
+
 
         } else if (req.method === 'POST') {
             const { channel_id, sender, content, sent_time } = JSON.parse(req.body);
