@@ -17,6 +17,8 @@ const ToolButton: FC<ToolButtonProps> = ({style, type, setSelectedTool, icon, ch
 		// This converts the type into a string that ts accepts
 		// Allows for dynamic accessing of the tool lmao
 		setSelectedTool(AllTools[key as keyof typeof AllTools])
+
+		
 	}
 
 	if(icon){

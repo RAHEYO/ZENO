@@ -12,6 +12,7 @@ import ChannelLayout from "./ChannelLayout";
 import Spacebar from "../General/Spacebar";
 
 import { Shape } from "./Shape";
+import { Note } from "./Note";
 
 type WhiteboardChannelProps = {
     channel: Channel
@@ -24,6 +25,8 @@ export type WhiteBoardItemProps = {
 	width: number,
 	height: number,
 	type: string
+	opacity: number
+	timestamp: number,
 }
 
 
@@ -33,6 +36,12 @@ type CanvasDimensions = {
 	rows: number,
 	columns: number,
 	offset: number,
+}
+
+type MouseClickedProps = {
+	x: number,
+	y: number,
+	className: string | object,
 }
 
 const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element => {
@@ -49,8 +58,18 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 	const whiteboardRef = useRef<HTMLInputElement | null>(null);
 
-	const [currentMouseDownPos, setCurrentMouseDownPos] = useState({x: 0, y: 0})
-	const [currentMouseUpPos, setCurrentMouseUpPos] = useState({x: 0, y: 0})
+	const defaultMousePos = {
+		x: 0,
+		y: 0,
+		className: "" as string | object,
+	}
+
+	const [currentMouseDownPos, setCurrentMouseDownPos] = useState<MouseClickedProps>({...defaultMousePos})
+	const [currentMouseUpPos, setCurrentMouseUpPos] = useState<MouseClickedProps>({...defaultMousePos})
+	const [currentMousePos, setCurrentMousePos] = useState({x: 0, y: 0})
+	const [mouseIsPressed, setMouseIsPressed] = useState(false)
+	
+	const [shadedPosition, setShadedPosition] = useState<WhiteBoardItemProps | null> (null)
 
 	const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
@@ -62,7 +81,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		columns: Math.floor(INITIAL_BOX_DIMENSIONS.width / GRID_SQUARE_DIMENSIONS.height),
 		offset: 0,
 	})
-		
+
 
 
 	useEffect(() => {
@@ -88,43 +107,87 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 	// I think client is what we want
 	// https://stackoverflow.com/a/21452887
 	const handleMouseDown = (event : MouseEvent) => {
-		setCurrentMouseDownPos({x: event.clientX, y: event.clientY})
+		setCurrentMouseDownPos({
+			x: event.clientX,
+			y: event.clientY,
+			// why does ts do this T-T
+			className: (event.target as Element).className
+		})
+	
+		setMouseIsPressed(true)
 		console.log(event)
 	}
 
 	const handleMouseUp = (event : MouseEvent) => {
-		setCurrentMouseUpPos({x: event.clientX, y: event.clientY})
+		setCurrentMouseUpPos({
+			x: event.clientX,
+			y: event.clientY,
+			className: (event.target as Element).className
+		})
+		setMouseIsPressed(false)
+
 		console.log(event)
 	}
 
 	
-
-	useEffect(() => {
-
-		console.log("currentMouseUpPos.x: " + currentMouseUpPos.x)
-		console.log("currentMouseDownPos.x: " + currentMouseDownPos.x)
-		console.log("currentMouseUpPos.y: " + currentMouseUpPos.y)
-		console.log("currentMouseDownPos.y: " + currentMouseDownPos.y)
+	const handleMouseMove = (event: MouseEvent) => {
+		setCurrentMousePos({
+			x: event.clientX, y: event.clientY
+		})
+	}
 
 
-		const width = currentMouseUpPos.x - currentMouseDownPos.x
-		const height = currentMouseUpPos.y - currentMouseDownPos.y
+	// Takes in the class name of the target element and determines if it's a whiteboard element
+	const clickInWhiteboardElement = (className: string | object) => {
+					
+		if((typeof className) === "string"){
+
+			const possibleClassNames = (className as string).split(" ")
+
+			const classesOfNote = ["react-draggable", "react-draggable-dragged", "note"]
+
+			for(const possibleClassName of possibleClassNames){
+				if(classesOfNote.includes(possibleClassName)) return true;
+			}
+
+			
+		} else if ((typeof className) === "object"){
+			const objectName = Object.getPrototypeOf((className as object))?.constructor.name
+			if(objectName == "SVGAnimatedString") return true;
+		}
 		
 
-		console.log("width: " + width)
-		console.log("height: " + height)
+		console.log(currentMouseDownPos.className)
+		return false
+	}
+
+	const calculateItemDimensions = (mouseDown : {x: number, y: number}, 
+		mouseUp : {x: number, y: number}, whiteboard: React.MutableRefObject<HTMLInputElement | null>) => {
+										
+		// console.log("mouseUp.x: " + mouseUp.x)
+		// console.log("mouseDown.x: " + mouseDown.x)
+		// console.log("mouseUp.y: " + mouseUp.y)
+		// console.log("mouseDown.y: " + mouseDown.y)
+
+
+		const width = mouseUp.x - mouseDown.x
+		const height = mouseUp.y - mouseDown.y
+		
+
+		// console.log("width: " + width)
+		// console.log("height: " + height)
 
 
 		let boardXOffset = 0;
 		let boardYOffset = 0;
-		if(whiteboardRef.current){
-			const boundingBox = whiteboardRef.current.getBoundingClientRect();
+		if(whiteboard.current){
+			const boundingBox = whiteboard.current.getBoundingClientRect();
 			boardXOffset = boundingBox.left;
 			boardYOffset = boundingBox.top;
 		}
 
-		let topLeftX = currentMouseDownPos.x - boardXOffset;
-		let topLeftY = currentMouseDownPos.y - boardYOffset; 
+		let topLeftX = mouseDown.x - boardXOffset;
+		let topLeftY = mouseDown.y - boardYOffset; 
 
 		// If the width is x units, and is less than zero, then the left most corner 
 		// of the bounding box will be x units to the left
@@ -142,20 +205,61 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 			console.log("Setting top left y: " + topLeftY)
 		}
 
-		if(items && width != 0 && height !=0){
+		return {
+			topLeftX: topLeftX,
+			topLeftY: topLeftY,
+			width: Math.abs(width),
+			height: Math.abs(height),
+		}
+	}
 
-			console.log("topleftX" + topLeftX + " vs calc: " + (currentMouseDownPos.x - boardXOffset))
-			console.log("topleftY" + topLeftY + " vs calc: " + (currentMouseDownPos.y - boardYOffset))
+	// const createShape = (shapeProps : WhiteBoardItemProps) => {
+	// 	return <Shape {shapeProps}></Shape>
+	// }
+
+	useEffect(() => {
+		if(!mouseIsPressed || clickInWhiteboardElement(currentMouseDownPos.className)) {
+			setShadedPosition(null)
+			return;
+		}
+
+		const newShape = calculateItemDimensions(currentMouseDownPos, currentMousePos, whiteboardRef)
+
+		setShadedPosition({
+			xPosition: newShape.topLeftX,
+			yPosition: newShape.topLeftY, 
+			width: newShape.width,
+			height: newShape.height,
+			type: "rect",
+			opacity: 0.3,
+			timestamp: Date.now()
+		})
+	
+
+	}, [currentMousePos.x, currentMousePos.y, mouseIsPressed])
+	
+	// Handle creation of dragging, and (for now), creation of new elements
+	useEffect(() => {
+
+		// Making sure we don't add new shapes when we don't want to
+		// Checking if the initial click was on a whiteboard element
+		if(clickInWhiteboardElement(currentMouseDownPos.className)) return;
+
+		const newShape = calculateItemDimensions(currentMouseDownPos, currentMouseUpPos, whiteboardRef)
+		if(items && newShape.width != 0 && newShape.height !=0){
+
 			setItems([...items, {
-				xPosition: topLeftX,
-				yPosition: topLeftY, 
-				width: Math.abs(width),
-				height: Math.abs(height),
+				xPosition: newShape.topLeftX,
+				yPosition: newShape.topLeftY, 
+				width: newShape.width,
+				height: newShape.height,
 				type: "rect",
+				opacity: 1,
+				timestamp: Date.now()
 			}])
 		}
 
-		console.log("I'm going!")
+	
 	}, [currentMouseUpPos.x, currentMouseUpPos.y])
 
 
@@ -194,14 +298,13 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		let badKey = 0
 
 		items?.forEach(item => {
-			console.log(item)
-
+		
 			badKey++ 
 
 			const styles: { [key: string]: string | number } = {
 				"width": item.width,
 				"height": item.height, 
-				"z-index": badKey,
+				"zIndex": badKey,
 				"position": "absolute",
 			}
 
@@ -209,11 +312,9 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 				<Draggable 
 					bounds = "parent" 
 					key = {badKey} 
-					axis="both" 
 					defaultPosition={{x:item.xPosition, y: item.yPosition}}>
-					<div style = {styles}>
+					<div style = {styles} className = "text-black">
 						<Shape {...item}></Shape>
-						apple
 					</div>
 				</Draggable>
 			)
@@ -221,7 +322,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 		return whiteboardItems
 	}
-
+	
 	return (
 		<ChannelLayout channel={channel}>
 			<Spacebar className="h-[75px]" />
@@ -230,11 +331,19 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 				 ref = {whiteboardRef} 
 				 onMouseDown={e => handleMouseDown(e)}
 				 onMouseUp = {e => handleMouseUp(e)}
+				 onMouseMove={e => handleMouseMove(e)}
 			>	
 				
 				
 				<Toolbar selectedTool = {selectedTool} setSelectedTool={setSelectedTool}/>
 				
+				<Note xPosition = {0} yPosition = {100} width = {50} height = {100} type = "note" opacity = {1} timestamp={Date.now()}/>
+				
+				{shadedPosition && <div className={`absolute w-[${shadedPosition.width}px] h-[${shadedPosition.height}px] z-[10000]`}
+									style = {{transform: `translateX(${shadedPosition.xPosition}px) translateY(${shadedPosition.yPosition}px)`}}>
+										<Shape {...shadedPosition}></Shape>
+									</div>
+				}
 				{renderItems()}
 				
 			</div>
