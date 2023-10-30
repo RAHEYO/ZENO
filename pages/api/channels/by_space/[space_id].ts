@@ -15,8 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const space_id = Number(req.query['space_id']);
 
     try {
+        const dbConnection = await establishConnection();
+
         if (req.method === 'GET') {
-            const dbConnection = await establishConnection();
             const query = fetchSpaceChannels(space_id);
 
             const [rows] = await dbConnection.execute(query);
@@ -33,14 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             res.status(200).json({ channels });
         } else if (req.method === 'POST') {
-            const dbConnection = await establishConnection();
             const { space_id, name, category } = JSON.parse(req.body);
             const query = `INSERT INTO channels (space_id, name, category) VALUES (${space_id}, '${name}', ${category});`;
             console.warn(query);
             await dbConnection.execute(query);
             res.status(200).json({ message: `Channel created successfully!` });
         }
-        
     } catch (error) {
         console.warn(error);
         res.status(500).json({ error });
