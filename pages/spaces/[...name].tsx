@@ -91,15 +91,21 @@ const SpacePage: NextPage<SpacePageProps> = ({ spaces, channel, channels, fallba
         )
     }
 
+    if (channel.category == ChannelCategory.Chat) {
+        return (
+            <SWRConfig value={{ fallback }} >
+                <RootLayout spaces={spaces} channels={channels}>
+                    <TextChannel channel={channel} /> 
+                </RootLayout>
+            </SWRConfig>
+        );
+    }
     return (
-    <RootLayout spaces={spaces} channels={channels}>
-        { channel.category == ChannelCategory.Chat ? 
-        <SWRConfig value={{ fallback }} >
-            <TextChannel channel={channel} /> 
-        </SWRConfig>
-        : <MeSpace spaces={spaces} channels={channels} /> }
-    </RootLayout>
+        <RootLayout spaces={spaces} channels={channels}>
+            <MeSpace spaces={spaces} channels={channels} />
+        </RootLayout>
     );
+
 }
 
 export default SpacePage;
