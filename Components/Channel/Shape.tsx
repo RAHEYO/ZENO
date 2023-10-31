@@ -10,7 +10,6 @@ export const Shape: FC<WhiteBoardItemProps> = ({xPosition, yPosition, center, wi
 
 	const borderThickness = 0;
 
-	const color = opacity !== 1 ? `rgba(0,105,0,${opacity})` :`rgba(0,0,255,${opacity})`
 	const getSvg = () => {
 		switch(type){
 			case "rect":
@@ -19,8 +18,9 @@ export const Shape: FC<WhiteBoardItemProps> = ({xPosition, yPosition, center, wi
 							width={width} 
 							height = {height} 
 							style={{
-								fill: color
+								opacity: opacity
 							}}
+						className={opacity !== 1 ? "fill-emerald-200" : "fill-blue-500"}
 						/>
 			case "circle":
 				styles.width = width + borderThickness + 5;
@@ -31,9 +31,9 @@ export const Shape: FC<WhiteBoardItemProps> = ({xPosition, yPosition, center, wi
 							cy = {height/2}
 							r = {width/2}
 							style={{
-								fill: "red",
 								opacity: opacity,
 							}}
+							className="fill-rose-500"
 						/>
 			case "triangle":
 				// Relative to svg container
@@ -46,9 +46,9 @@ export const Shape: FC<WhiteBoardItemProps> = ({xPosition, yPosition, center, wi
 							id = {id}
 							points={points.join(" ")} 
 							style={{
-								fill: "lime",
 								opacity: opacity,
 							}}
+							className="fill-green-400"
 						/>
 							
 		}

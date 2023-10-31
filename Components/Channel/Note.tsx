@@ -25,7 +25,7 @@ export const Note: FC<WhiteBoardItemProps> = ({xPosition, yPosition, width, heig
 
 				<input 
 					type = "text" 
-					className = {`note text-center text-black block z-10 w-1/3 min-w-[100px] mx-1/4 grow-0 basis-[30px] mb-[10px] rounded-lg`}
+					className = {`note nodelete text-center text-black block z-10 w-1/3 min-w-[100px] mx-1/4 grow-0 basis-[30px] mb-[10px] rounded-lg`}
 					value = {noteTitle} 
 					onChange = {e => setNoteTitle(e.target.value)}
 					placeholder = "Title"
@@ -33,7 +33,7 @@ export const Note: FC<WhiteBoardItemProps> = ({xPosition, yPosition, width, heig
 				/>
 
 				<textarea 
-					className = "note text-black block grow basis-[0px] w-full rounded-lg p-[5px]" 
+					className = "note nodelete text-black block grow basis-[0px] w-full rounded-lg p-[5px]" 
 					value = {noteText} 
 					onChange = {e => setNoteText(e.target.value)}
 					placeholder = {placeHolderNoteText}

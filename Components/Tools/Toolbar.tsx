@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 
 import {IoShapesOutline} from "react-icons/io5"
 import {FaPen} from "react-icons/fa";
-import { PiCursorFill } from "react-icons/pi";
+import { PiCursorFill, PiTextboxLight } from "react-icons/pi";
 import { BiRectangle, BiCircle } from "react-icons/bi";
 import { FiTriangle } from "react-icons/fi";
 
@@ -60,11 +60,19 @@ type ToolbarProps = {
 };
 
 
-const toolbarStyles = "bg-primary min-w-[40vw] max-w-[60vw] max-h-[7.5vh] mx-auto flex justify-evenly z-10 absolute left-1/4"
+const toolbarStyles = "bg-slate-400 min-w-[40vw] max-w-[60vw] max-h-[7.5vh] mx-auto flex justify-evenly z-10 absolute left-1/4 rounded-lg"
+
+const toolbarIconStyles = "bg-slate-400 w-full h-full duration-100 ease-linear transition-colors "
 
 const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element => {
 
 	const [currentSelectedSubtype, setSelectedSubtype] = useState<string | null>(null)
+
+	const selectedColor = (type : string) => {
+		if(selectedTool.type !== type) return "fill-white stroke-white";
+		
+		return "fill-cyan-300 stroke-cyan-300"
+	}
 
 	const createSubBar = (subtype : string) => {
 		switch (subtype){
@@ -78,7 +86,7 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
 				>
-					<BiRectangle style = {{color: "black"}} className="w-full h-full"/>
+					<BiRectangle className={toolbarIconStyles + selectedColor("rect")}/>
 				</ToolButton>,
 				<ToolButton
 					type = {AllTools.shape.circle.type}
@@ -87,7 +95,7 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
 				>
-					<BiCircle style = {{color: "black"}} className="w-full h-full" />
+					<BiCircle className={toolbarIconStyles + selectedColor("circle")} />
 				</ToolButton>,
 				<ToolButton
 					type = {AllTools.shape.triangle.type}
@@ -96,7 +104,7 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
 				>
-					<FiTriangle style = {{color: "black"}} className="w-full h-full" />
+					<FiTriangle className={toolbarIconStyles + selectedColor("triangle")}/>
 				</ToolButton>
 
 					
@@ -114,17 +122,18 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
 				>
-					<PiCursorFill style = {{color: "black"}} className="w-full h-full" />
+					<PiCursorFill className={toolbarIconStyles + selectedColor("cursor")} />
 				</ToolButton>
 
 				<ToolButton 
 					type = {AllTools.text.type} 
 					style = {AllTools.text.style} 
 					setSelectedTool={setSelectedTool} 
-					icon = {TextIcon} 
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
-				/>
+				>
+					<PiTextboxLight className={toolbarIconStyles + selectedColor("text")}/>
+				</ToolButton>
 
 				<ToolButton
 					type = {AllTools.shape.type}
@@ -133,7 +142,7 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 					setSelectedSubtype={setSelectedSubtype}
 					currentSelectedSubtype= {currentSelectedSubtype}
 				>
-					<IoShapesOutline style = {{color: "black"}} className="w-full h-full" />
+					<IoShapesOutline className={toolbarIconStyles + selectedColor("shape")} />
 				</ToolButton>
 
 				{/* <ToolButton
@@ -147,7 +156,7 @@ const Toolbar: FC<ToolbarProps> = ({selectedTool, setSelectedTool}): JSX.Element
 				</ToolButton> */}
 			</div>
 			{ currentSelectedSubtype &&
-			<div className={`toolbar ${toolbarStyles}`}>
+			<div className={`toolbar my-[10vh] ${toolbarStyles}`}>
 				{createSubBar(currentSelectedSubtype)}
 			</div>
 			}

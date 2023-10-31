@@ -18,8 +18,8 @@ const ToolButton: FC<ToolButtonProps> = ({style, type, setSelectedTool, setSelec
 
 		setSelectedTool(AllTools[key as keyof typeof AllTools])
 
+		
 		if(AllTools[key as keyof typeof AllTools]?.subtype) {
-			
 			setSelectedSubtype(key)
 			return;
 		}
@@ -34,7 +34,7 @@ const ToolButton: FC<ToolButtonProps> = ({style, type, setSelectedTool, setSelec
 			//alert(key)
 			console.log(parent[key as keyof typeof parent])
 			setSelectedTool(parent[key as keyof typeof parent])
-			setSelectedSubtype(null)
+			//setSelectedSubtype(null)
 			return;
 		}
 

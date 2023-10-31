@@ -114,9 +114,9 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 
 			const itemsCopy = new Map(items)
 
-			console.log(selectedElementIds)
+			console.log(unique)
 
-			selectedElementIds.forEach(id => {
+			unique.forEach(id => {
 				console.log(itemsCopy.delete(id))
 				//alert("awesome")
 			})
@@ -127,7 +127,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 			setItems(new Map(itemsCopy))
 			
 			
-			setSelectedElementIds([])
+			//setSelectedElementIds([])
 		}
 	}, [selectedElementIds])
 
@@ -156,11 +156,17 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		})
 
 		const id = (event.target as Element).id		
+		let classNames = [""]
+
+		if(typeof (event.target as Element).className === "string"){
+			classNames = ((event.target as Element)?.className)?.split(" ")
+		}
+
 		setMouseIsPressed(true)
 		console.log(event)
 		console.log(id)
 
-		if(items.has(id)){
+		if(items.has(id) && !classNames.includes("nodelete")){
 			setSelectedElementIds([id])
 		} else {
 			console.log("clear!!")
@@ -519,7 +525,7 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 		<ChannelLayout channel={channel}>
 			<Spacebar className="h-[75px]" />
 			<div id = "blank-whiteboard-space" 
-				 className="h-[calc(100vh-145px)] bg-white relative" 
+				 className="h-[calc(100vh-145px)] bg-slate-600 relative" 
 				 ref = {whiteboardRef} 
 				 onMouseDown={e => handleMouseDown(e)}
 				 onMouseUp = {e => handleMouseUp(e)}
