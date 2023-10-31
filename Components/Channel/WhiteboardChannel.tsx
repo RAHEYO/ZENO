@@ -132,10 +132,10 @@ const WhiteboardChannel: FC<WhiteboardChannelProps> = ({channel}): JSX.Element =
 	}, [selectedElementIds])
 
 	useEffect(() => {
-		
-		
 		document.addEventListener("keydown", (e) => handleKeydown(e))
-		return document.addEventListener("keydown", (e) => handleKeydown(e))
+		return () => {
+			document.removeEventListener("keydown", (e) => handleKeydown(e))
+		}
 	}, [handleKeydown])
 
 
